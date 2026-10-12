@@ -66,35 +66,35 @@ export type AttireColor = string | { name: string; hex: string }
 
 // ── The couple ──────────────────────────────────────────────────────────────
 const COUPLE = {
-  bride: "Claudine Tamayo",
-  brideNickname: "Claudine",
-  groom: "Ivanne Biason",
-  groomNickname: "Ivanne",
+  bride: "Rosanne Enolpe",
+  brideNickname: "Rosanne",
+  groom: "Jaefranz Carcueva",
+  groomNickname: "Jaefranz",
 }
 
 // ── Date & times ────────────────────────────────────────────────────────────
-const WEDDING_DATE = "March 20, 2027" // e.g. "June 5, 2027"
-const WEDDING_DAY = "Saturday"
+const WEDDING_DATE = "January 21, 2027" // e.g. "June 5, 2027"
+const WEDDING_DAY = "Thursday"
 const TIMES = {
-  entourageCall: "1:00 PM", // entourage arrival
+  entourageCall: "1:30 PM", // entourage arrival
   guestArrival: "1:30 PM", // guests arrival (shown in Event Details + reminders)
-  ceremony: "2:00 PM",
-  reception: "4:30 PM", // program proper
+  ceremony: "3:30 PM",
+  reception: "5:30 PM", // program proper
 }
 
 // ── Venues ──────────────────────────────────────────────────────────────────
 
 const CEREMONY_VENUE = {
-  name: "Metropolitan Cathedral Parish of St. John the Evangelist",
-  address: "Burgos St, Downtown District, Dagupan City, Pangasinan",
-  map: "https://maps.app.goo.gl/gyVBV2CdvQ4KgAC87",
-  photos: ["/Details/ceremony.jpg", "/Details/ceremony.webp", "/Details/ceremony (2).png"],
+  name: "St. Mary's Catholic Church, Dubai",
+  address: "247 Oud Metha Rd - Umm Hurair Second - Dubai - United Arab Emirates",
+  map: "https://maps.app.goo.gl/cq6AuvZuszsVUX2F6",
+  photos: ["/Details/newceremony (1).jpg", "/Details/newceremony (2).jpg"],
 }
 const RECEPTION_VENUE = {
-  name: "The Village Royale",
-  address: "Bued, Calasiao, Pangasinan, Philippines",
-  map: "https://maps.app.goo.gl/DqfzZCzJHT76Z1vh8",
-  photos: ["/Details/reception (1).jpg", "/Details/reception (2).jpg"],
+  name: "Dubai Marine Beach Resort & Spa",
+  address: "3 21A St - Jumeirah 1 - Jumeirah - Dubai - United Arab Emirates",
+  map: "https://maps.app.goo.gl/2qQzbbAkrQ6UNv516",
+  photos: ["/Details/receptions (3).jpg", "/Details/reception22.jpg","/Details/receptions11.jpg"],
 }
 
 // ── Venue cards (Event Details section) ─────────────────────────────────────
@@ -139,11 +139,11 @@ const VENUE_CARDS = {
 
 // ── RSVP & contact ──────────────────────────────────────────────────────────
 const RSVP = {
-  deadline: "February 20, 2027",
+  deadline: "January 01, 2027",
   coordinator: "{groom} / {bride}", // {groom} / {bride} → couple nicknames
   phone: "to be announced",
 }
-const HASHTAGS = ["#IvAndClaudineWedding"] // ⚠ check — looks like it's from a previous couple
+const HASHTAGS = ["#JaefranzAndRosanneWedding"] // ⚠ check — looks like it's from a previous couple
 
 // ── Attire guide (Event Details → Attire Guidelines) ────────────────────────
 // SHOW = which cards to display AND their order, top to bottom. Examples:
@@ -161,79 +161,85 @@ const HASHTAGS = ["#IvAndClaudineWedding"] // ⚠ check — looks like it's from
 //     label:     e.g. "Ninang", "Bridesmaids", "Ladies"
 //     details:   the dress code text ("" hides this half of the card)
 //     highlight: phrase inside details shown bold + underlined ("" for none)
+
+
 const DRESS_CODE_PALETTE: AttireColor[] = [
-  { name: "Deep Cocoa Brown", hex: "#835643" },
-  { name: "Terracotta Nude", hex: "#C48C73" },
-  { name: "Dusty Blush Pink", hex: "#E3CAC5" },
-  { name: "Muted Beige Taupe", hex: "#CBAFA1" },
-  { name: "Warm Ivory", hex: "#F2E9E2" },
+  { name: "Champagne", hex: "#D5B293" },
+  { name: "Muted Rose", hex: "#C88387" },
+  { name: "Maroon", hex: "#651F2A" },
+  { name: "Navy", hex: "#1E2A44" },
+  { name: "Butter", hex: "#F6D99F" },
 ];
 
 
 
+
+
+
 const ATTIRE = {
-  show: ["guests"] as AttireGroupId[],
+  show: ["sponsors", "entourage", "guests"] as AttireGroupId[],
 
   sponsors: {
     title: "Principal Sponsors",
-    image: "/Details/entourage.png",
-    palette: [ ] as AttireColor[],
-
-    ladies: {
-      label: "Ladies",
-      details:
-        "Formal floor-length dresses in elegant shades of sage, olive, and deep botanical green.",
-      highlight: "Formal Dresses",
-    },
-
-    gentlemen: {
-      label: "Gentlemen",
-      details:
-        "Formal suit or dress shirt paired with tailored slacks in coordinated sage, olive, or deep green tones.",
-      highlight: "Suit or Dress Shirt with Slacks",
-    },
-  },
-
-  entourage: {
-    title: "Entourage",
-    image: "/Details/entourage.png",
+    image: "/Details/ninangninong.png",
     palette: [] as AttireColor[],
 
     ladies: {
       label: "Ladies",
       details:
-        "Elegant floor-length dresses in coordinated sage green and botanical green shades. Dress styles may vary while maintaining a refined and cohesive look.",
-      highlight: "Formal Dresses",
+        "Elegant floor-length formal gowns in a coordinated dark navy blue shade. Gown styles may vary while maintaining a sophisticated, graceful, and timeless appearance.",
+      highlight: "Dark Navy Formal Gowns",
     },
 
     gentlemen: {
       label: "Gentlemen",
       details:
-        "Dress shirts paired with tailored slacks in complementary sage, olive, beige, or deep green tones.",
-      highlight: "Dress Shirt with Slacks",
+        "Traditional ivory Barong Tagalog with elegant embroidery, paired with tailored black formal trousers and polished black dress shoes.",
+      highlight: "Ivory Barong Tagalog with Black Slacks",
+    },
+  },
+
+  entourage: {
+    title: "Entourage",
+    image: "/Details/entouragenew.png",
+    palette: [] as AttireColor[],
+
+    ladies: {
+      label: "Ladies",
+      details:
+        "Elegant floor-length formal gowns in a uniform deep maroon shade. Different gown styles and silhouettes are welcome while maintaining a romantic, refined, and coordinated appearance.",
+      highlight: "Maroon Formal Gowns",
+    },
+
+    gentlemen: {
+      label: "Gentlemen",
+      details:
+        "Traditional ivory Barong Tagalog with subtle embroidered details, paired with tailored black formal trousers and polished black dress shoes for a classic and coordinated wedding look.",
+      highlight: "Ivory Barong Tagalog with Black Slacks",
     },
   },
 
   guests: {
     title: "Guests",
-    image: "/Details/guest.png",
+    image: "/Details/newguest.png",
     palette: DRESS_CODE_PALETTE,
 
     ladies: {
       label: "Ladies",
       details:
-        "Elegant semi-formal dresses in the wedding's peach, coral, teal, seafoam, and warm sand palette. Guests may choose different dress styles while keeping the overall look romantic, refined, and beautifully coordinated.",
-      highlight: "Semi-Formal Dresses",
+        "Elegant formal gowns in the wedding's sunrise-inspired palette of Silver Grey, Navy, Maroon, Muted Rose, Brick, Soft Amber, Butter Yellow, and Champagne. Guests may choose different gown styles and silhouettes while maintaining a romantic, sophisticated, and beautifully coordinated appearance.",
+      highlight: "Formal Gowns in Sunrise Colors",
     },
-    
+
     gentlemen: {
       label: "Gentlemen",
       details:
-        "Semi-formal dress shirts, tailored trousers, or coordinated suit separates in complementary coastal teal, seafoam, peach, warm sand, beige, or neutral tones for a polished yet relaxed wedding look.",
-      highlight: "Dress Shirt with Tailored Slacks",
+        "Elegant formal suits or coordinated suit separates in Silver Grey, Navy, Maroon, Champagne, and complementary neutral tones. Pair with a formal dress shirt, tailored trousers, and polished dress shoes for a refined wedding look.",
+      highlight: "Formal Suits with Tailored Trousers",
     },
   },
-}
+};
+
 
 // ── Website address (used for QR codes, link previews, table finder) ────────
 // NEXT_PUBLIC_SITE_URL (env) overrides this when set.
@@ -251,9 +257,9 @@ const DISPLAY_MODE = "plain" as "photos" | "plain"
 
 // ── Shared images ───────────────────────────────────────────────────────────
 const BRAND = {
-  monogram: "/monogram/monogram.png",
+  monogram: "/monogram/newmonogram.png",
   coupleNameImage: "/Details/newcoupelNames.png", // couple-name lettering (loader, envelope)
-  seal: "/monogram/seal.png", // envelope wax seal
+  seal: "/monogram/newseal.png", // envelope wax seal
   backgroundMusic: "/background_music/Goodness Of God X Oceans X Gratitude (Wedding Entrance version).mp3",
 }
 
