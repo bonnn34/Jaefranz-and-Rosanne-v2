@@ -245,7 +245,7 @@ const ATTIRE = {
 // NEXT_PUBLIC_SITE_URL (env) overrides this when set.
 const SITE_URL = "https://ivanne-and-claudine.weddinginvitationrsvp.com/"
 // Image shown when the link is shared (Facebook, Messenger, Viber, X, …) — 1200×630 JPG in /public
-const LINK_PREVIEW_IMAGE = "/Details/LinkPrevei.png"
+const LINK_PREVIEW_IMAGE = "/Details/compressed-previewimg.webp"
 
 // Site address with env override applied and no trailing slash — no need to edit
 export const canonicalSiteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? SITE_URL).replace(/\/$/, "")
@@ -1394,8 +1394,8 @@ Now, as they prepare to say yes before God and the people they love most, Cather
     decos: { ...CORNER_DECOS, headerOrnament: DECOR.headerOrnament },
     embedUrl:
     //https://open.spotify.com/embed/playlist/5sT43YjdM8pJ3xtEkrxyEY?utm_source=generator&si=e5e64aa63fd04356
-      "https://open.spotify.com/embed/playlist/68XdzLgHkUegQRLF8xlQOW?utm_source=generator&si=da5b4d6b1fe541ab",
-    spotifyUrl: "https://open.spotify.com/playlist/68XdzLgHkUegQRLF8xlQOW",
+      "https://open.spotify.com/embed/playlist/0ODc8euexYUvftVVGYEzca?utm_source=generator&si=c20e2208e4fe4396",
+    spotifyUrl: "https://open.spotify.com/playlist/0ODc8euexYUvftVVGYEzca?si=eGHBlaWIR_WrVEhVa-CLQg",
   },
   // Closing "See you there!" section (components/sections/see-you-there.tsx).
   //   photos mode (loadingScreen.display "photos") → full-screen couple photo
