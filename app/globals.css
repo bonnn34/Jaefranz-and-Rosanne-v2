@@ -63,53 +63,53 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  /* Primary: cocoa brown #835643 */
-  --primary: #835643;
-  --primary-foreground: oklch(0.145 0 0);
-  /* Secondary: dusty pink #D8B0B0 */
-  --secondary: #D8B0B0;
-  --secondary-foreground: oklch(0.145 0 0);
-  /* Sage mapped to secondary */
-  --sage: #D8B0B0;
-  /* Muted/light surfaces: blush ivory #F3ECEE */
-  --muted: #F3ECEE;
-  --muted-foreground: oklch(0.145 0 0);
-  /* Accent: dusty pink #D8B0B0 */
-  --accent: #D8B0B0;
-  --accent-foreground: oklch(0.145 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: #835643;
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
+  /* Sunset palette. Visual balance: Golden Peach 25%, Sunset Peach 20%,
+     Sunset Coral 15%, Terracotta Rose 15%, Dusty Mauve 15%, Deep Plum 10%. */
+  --palette-golden-peach: #FFB978;
+  --palette-sunset-peach: #FFA47F;
+  --palette-sunset-coral: #F17C59;
+  --palette-terracotta-rose: #B65E50;
+  --palette-dusty-mauve: #AC7385;
+  --palette-deep-plum: #644657;
+  --background: color-mix(in srgb, var(--palette-golden-peach) 22%, white);
+  --foreground: var(--palette-deep-plum);
+  --card: color-mix(in srgb, var(--palette-golden-peach) 35%, white);
+  --card-foreground: var(--palette-deep-plum);
+  --popover: color-mix(in srgb, var(--palette-golden-peach) 35%, white);
+  --popover-foreground: var(--palette-deep-plum);
+  /* Primary: deep plum #644657 */
+  --primary: var(--palette-deep-plum);
+  --primary-foreground: #FFFFFF;
+  /* Secondary: sunset peach #FFA47F */
+  --secondary: var(--palette-sunset-peach);
+  --secondary-foreground: var(--palette-deep-plum);
+  /* Legacy sage alias mapped to sunset peach */
+  --sage: var(--palette-sunset-peach);
+  /* Muted/light surfaces: light sunset peach #FFA47F */
+  --muted: color-mix(in srgb, var(--palette-sunset-peach) 20%, white);
+  --muted-foreground: var(--palette-deep-plum);
+  /* Accent: sunset coral #F17C59 */
+  --accent: var(--palette-sunset-coral);
+  --accent-foreground: var(--palette-deep-plum);
+  --destructive: color-mix(in srgb, var(--palette-terracotta-rose) 85%, var(--palette-deep-plum));
+  --destructive-foreground: #FFFFFF;
+  --border: color-mix(in srgb, var(--palette-dusty-mauve) 45%, white);
+  --input: color-mix(in srgb, var(--palette-dusty-mauve) 45%, white);
+  --ring: var(--palette-deep-plum);
+  --chart-1: var(--palette-golden-peach);
+  --chart-2: var(--palette-sunset-peach);
+  --chart-3: var(--palette-sunset-coral);
+  --chart-4: var(--palette-terracotta-rose);
+  --chart-5: var(--palette-dusty-mauve);
   --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: #835643;
-  --sidebar-primary-foreground: oklch(0.145 0 0);
-  --sidebar-accent: #D8B0B0;
-  --sidebar-accent-foreground: oklch(0.145 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: #835643;
-
-/* Decoration tint: the botanical PNGs in /public/deco are painted in sage
-   (hue ≈ 92°). This recolors them to the wedding motif's warm terracotta
-   and cocoa-brown palette: grayscale + sepia flattens the sage, then
-   hue-rotate/saturate/brightness create a warm earthy tint while keeping
-   the watercolor shading.
-   Set to "none" to show the original artwork. */
---deco-filter: grayscale(1) sepia(1) hue-rotate(345deg) saturate(1.6) brightness(0.55);
+  --sidebar: color-mix(in srgb, var(--palette-golden-peach) 22%, white);
+  --sidebar-foreground: var(--palette-deep-plum);
+  --sidebar-primary: var(--palette-deep-plum);
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: var(--palette-sunset-peach);
+  --sidebar-accent-foreground: var(--palette-deep-plum);
+  --sidebar-border: color-mix(in srgb, var(--palette-dusty-mauve) 45%, white);
+  --sidebar-ring: var(--palette-deep-plum);
 
 /* QR codes (every QR on the site + dashboard): darkest motif color on white.
    Read at runtime by hooks/use-css-color, so any CSS color works here. */
@@ -118,40 +118,40 @@
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.145 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.145 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: #835643;
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: #D8B0B0;
-  --secondary-foreground: oklch(0.985 0 0);
-  /* Sage for dark mode */
-  --sage: #D8B0B0;
-  --muted: #F3ECEE;
-  --muted-foreground: oklch(0.145 0 0);
-  --accent: #D8B0B0;
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.396 0.141 25.723);
-  --destructive-foreground: oklch(0.637 0.237 25.331);
-  --border: oklch(0.269 0 0);
-  --input: oklch(0.269 0 0);
-  --ring: #835643;
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: #835643;
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: #D8B0B0;
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(0.269 0 0);
-  --sidebar-ring: #835643;
+  --background: color-mix(in srgb, var(--palette-deep-plum) 30%, black);
+  --foreground: color-mix(in srgb, var(--palette-golden-peach) 22%, white);
+  --card: color-mix(in srgb, var(--palette-deep-plum) 40%, black);
+  --card-foreground: color-mix(in srgb, var(--palette-golden-peach) 22%, white);
+  --popover: color-mix(in srgb, var(--palette-deep-plum) 40%, black);
+  --popover-foreground: color-mix(in srgb, var(--palette-golden-peach) 22%, white);
+  --primary: var(--palette-deep-plum);
+  --primary-foreground: #FFFFFF;
+  --secondary: var(--palette-sunset-peach);
+  --secondary-foreground: var(--palette-deep-plum);
+  /* Legacy sage alias mapped to sunset peach in dark mode */
+  --sage: var(--palette-sunset-peach);
+  --muted: color-mix(in srgb, var(--palette-sunset-peach) 20%, white);
+  --muted-foreground: var(--palette-deep-plum);
+  --accent: var(--palette-sunset-coral);
+  --accent-foreground: var(--palette-deep-plum);
+  --destructive: color-mix(in srgb, var(--palette-terracotta-rose) 85%, var(--palette-deep-plum));
+  --destructive-foreground: #FFFFFF;
+  --border: color-mix(in srgb, var(--palette-dusty-mauve) 35%, black);
+  --input: color-mix(in srgb, var(--palette-dusty-mauve) 35%, black);
+  --ring: var(--palette-deep-plum);
+  --chart-1: var(--palette-golden-peach);
+  --chart-2: var(--palette-sunset-peach);
+  --chart-3: var(--palette-sunset-coral);
+  --chart-4: var(--palette-terracotta-rose);
+  --chart-5: var(--palette-dusty-mauve);
+  --sidebar: color-mix(in srgb, var(--palette-deep-plum) 35%, black);
+  --sidebar-foreground: color-mix(in srgb, var(--palette-golden-peach) 22%, white);
+  --sidebar-primary: var(--palette-deep-plum);
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: var(--palette-sunset-peach);
+  --sidebar-accent-foreground: var(--palette-deep-plum);
+  --sidebar-border: color-mix(in srgb, var(--palette-dusty-mauve) 35%, black);
+  --sidebar-ring: var(--palette-deep-plum);
 }
 
 @theme inline {
@@ -163,70 +163,70 @@
 /* ==========================================
  *  MOTIF COLORS
  *
- *  Theme: Sunrise Romance
+ *  Theme: Peach Sunset Romance
  *
- *  Champagne + Muted Rose + Maroon
- *  Navy + Butter
+ *  Golden Peach + Sunset Peach + Sunset Coral
+ *  Terracotta Rose + Dusty Mauve + Deep Plum
  *
- *  Supporting: Brick + Soft Amber + Silver Grey
+ *  Balance: 25% / 20% / 15% / 15% / 15% / 10%
  * ========================================== */
 
 /* ------------------------------------------
  * Background / Linen
  * ------------------------------------------ */
 
---color-motif-cream: #FFF8F0;
-/* Warm ivory */
+--color-motif-cream: color-mix(in srgb, var(--palette-golden-peach) 22%, white);
+/* Light golden peach tint */
 
---color-motif-yellow: #F6D99F;
-/* Butter */
+--color-motif-yellow: var(--palette-golden-peach);
+/* Golden Peach */
 
---color-motif-soft: #F6EADF;
-/* Soft cream paper */
+--color-motif-soft: color-mix(in srgb, var(--palette-golden-peach) 35%, white);
+/* Golden peach paper tint */
 
 
 /* ------------------------------------------
  * Romantic Accents
  * ------------------------------------------ */
 
---color-motif-accent: #C88387;
-/* Muted Rose */
+--color-motif-accent: var(--palette-sunset-coral);
+/* Sunset Coral */
 
---color-motif-deep: #651F2A;
-/* Maroon */
+--color-motif-deep: var(--palette-deep-plum);
+/* Deep Plum */
 
---color-motif-medium: #D5B293;
-/* Champagne */
+--color-motif-medium: var(--palette-golden-peach);
+/* Golden Peach */
 
 
 /* ------------------------------------------
- * Navy Blue Accents
+ * Terracotta / Peach Accents
  * ------------------------------------------ */
 
---color-motif-teal: #1E2A44;
-/* Navy */
+--color-motif-teal: var(--palette-terracotta-rose);
+/* Terracotta Rose */
 
---color-motif-teal-medium: #D5B293;
-/* Champagne */
+--color-motif-teal-medium: var(--palette-golden-peach);
+/* Golden Peach */
 
---color-motif-teal-light: #C88387;
-/* Muted Rose */
+--color-motif-teal-light: var(--palette-sunset-peach);
+/* Sunset Peach */
 
 
 /* ------------------------------------------
  * Floral / Romantic Accent
  * ------------------------------------------ */
 
---color-motif-blush: #C88387;
-/* Muted Rose */
+--color-motif-blush: var(--palette-dusty-mauve);
+/* Dusty Mauve */
 
 
 /* ------------------------------------------
  * Neutral / Paper
  * ------------------------------------------ */
 
---color-motif-silver: #A9AAAC;
-/* Silver Grey */
+--color-motif-silver: var(--palette-dusty-mauve);
+/* Dusty Mauve */
 
 
 /* ==========================================
@@ -265,8 +265,8 @@
  * Main body text
  * ------------------------------------------ */
 
---color-welcome-text: #1E2A44;
-/* Navy */
+--color-welcome-text: var(--palette-deep-plum);
+/* Deep Plum */
 
 
 /* ------------------------------------------
@@ -276,7 +276,7 @@
 --color-welcome-text-soft:
     color-mix(
         in srgb,
-        #1E2A44 62%,
+        var(--palette-deep-plum) 62%,
         white
     );
 
@@ -285,24 +285,24 @@
  * Small headings
  * ------------------------------------------ */
 
---color-welcome-heading: #651F2A;
-/* Maroon */
+--color-welcome-heading: var(--palette-deep-plum);
+/* Deep Plum */
 
 
 /* ------------------------------------------
  * Script / romantic accent
  * ------------------------------------------ */
 
---color-welcome-script: #C88387;
-/* Muted Rose */
+--color-welcome-script: var(--palette-terracotta-rose);
+/* Terracotta Rose */
 
 
 /* ------------------------------------------
  * Main hero heading
  * ------------------------------------------ */
 
---color-welcome-navy: #651F2A;
-/* Maroon */
+--color-welcome-navy: var(--palette-deep-plum);
+/* Deep Plum */
 
 
 /* ==========================================
@@ -313,67 +313,67 @@
  * Buttons
  * ------------------------------------------ */
 
---color-welcome-green: #651F2A;
-/* Maroon */
+--color-welcome-green: var(--palette-deep-plum);
+/* Deep Plum */
 
 
 /* ------------------------------------------
  * Decorative coastal / floral lines
  * ------------------------------------------ */
 
---color-welcome-botanical: #C88387;
-/* Muted Rose */
+--color-welcome-botanical: var(--palette-dusty-mauve);
+/* Dusty Mauve */
 
 
 /* ------------------------------------------
- * Gold decorative details
+ * Golden peach decorative details
  * ------------------------------------------ */
 
---color-welcome-gold: #D5B293;
-/* Champagne */
+--color-welcome-gold: var(--palette-golden-peach);
+/* Golden Peach */
 
 
 /* ------------------------------------------
  * Floral accents
  * ------------------------------------------ */
 
---color-welcome-blush: #C88387;
-/* Muted Rose */
+--color-welcome-blush: var(--palette-dusty-mauve);
+/* Dusty Mauve */
 
 
 /* ==========================================
- *  ADDITIONAL SUNRISE ROMANCE COLORS
+ *  ADDITIONAL PEACH SUNSET COLORS
  * ========================================== */
 
-/* Maroon */
---color-coastal-deep: #651F2A;
+/* Deep Plum */
+--color-coastal-deep: var(--palette-deep-plum);
 
-/* Navy */
---color-coastal-teal: #1E2A44;
+/* Terracotta Rose */
+--color-coastal-teal: var(--palette-terracotta-rose);
 
-/* Champagne */
---color-coastal-soft: #D5B293;
+/* Golden Peach */
+--color-coastal-soft: var(--palette-golden-peach);
 
-/* Muted Rose */
---color-coastal-light: #C88387;
+/* Sunset Peach */
+--color-coastal-light: var(--palette-sunset-peach);
 
-/* Brick */
---color-romantic-coral: #B65C43;
+/* Sunset Coral */
+--color-romantic-coral: var(--palette-sunset-coral);
 
-/* Maroon */
---color-romantic-deep: #651F2A;
+/* Deep Plum */
+--color-romantic-deep: var(--palette-deep-plum);
 
-/* Butter */
---color-romantic-peach: #F6D99F;
+/* Golden Peach */
+--color-romantic-peach: var(--palette-golden-peach);
 
-/* Muted Rose */
---color-romantic-blush: #C88387;
+/* Dusty Mauve */
+--color-romantic-blush: var(--palette-dusty-mauve);
 
-/* Champagne */
---color-coastal-sand: #D5B293;
+/* Golden Peach */
+--color-coastal-sand: var(--palette-golden-peach);
 
-/* Warm ivory */
---color-coastal-ivory: #FFF8F0;
+/* Light golden peach tint */
+--color-coastal-ivory: color-mix(in srgb, var(--palette-golden-peach) 22%, white);
 
 
 /* ==========================================
@@ -400,16 +400,12 @@
 
 /* Flat base painted behind the circles — light blush */
 --color-bg-pattern-base:
-    color-mix(
-        in srgb,
-        var(--color-romantic-blush) 30%,
-        var(--color-motif-cream)
-    );
+    color-mix(in srgb, var(--palette-sunset-peach) 30%, var(--color-motif-cream));
 
 /* Main circles — blush pink family */
---color-bg-circle-deep: color-mix(in srgb, var(--color-romantic-peach) 40%, transparent);
+--color-bg-circle-deep: color-mix(in srgb, var(--palette-deep-plum) 10%, transparent);
 
---color-bg-circle-mid: color-mix(in srgb, var(--color-romantic-blush) 55%, transparent);
+--color-bg-circle-mid: color-mix(in srgb, var(--palette-sunset-peach) 55%, transparent);
 
 --color-bg-circle-light: color-mix(in srgb, white 55%, transparent);
 
@@ -417,15 +413,15 @@
 /* Accent circles — a touch of other palette colors */
 --color-bg-circle-accent-1: color-mix(in srgb, var(--color-romantic-coral) 30%, transparent);
 
---color-bg-circle-accent-2: color-mix(in srgb, var(--color-coastal-light) 40%, transparent);
+--color-bg-circle-accent-2: color-mix(in srgb, var(--palette-terracotta-rose) 30%, transparent);
 
 --color-bg-circle-accent-3: color-mix(in srgb, var(--color-coastal-sand) 60%, transparent);
 
 
 /* Rose + soft peach circles scattered through the pattern */
---color-bg-circle-rose: color-mix(in srgb, #C88387 38%, transparent);
+--color-bg-circle-rose: color-mix(in srgb, var(--palette-dusty-mauve) 38%, transparent);
 
---color-bg-circle-peach: color-mix(in srgb, #F6D99F 50%, transparent);
+--color-bg-circle-peach: color-mix(in srgb, var(--palette-sunset-peach) 50%, transparent);
 
 
 /* Text and divider lines sitting directly on the pattern */
@@ -453,25 +449,25 @@
 
 
 /* ==========================================
- *  ENVELOPE — DUSTY BLUSH FAMILY
+ *  ENVELOPE — SUNSET PEACH FAMILY
  *  The invitation envelope (components/loader/
  *  envelope-invite.css). Letter inside stays light.
  * ========================================== */
 
-/* Main paper — muted rose */
---color-envelope-paper: #C88387;
+/* Main paper — sunset peach */
+--color-envelope-paper: var(--palette-sunset-peach);
 
 /* Back panel / inside */
---color-envelope-base: color-mix(in srgb, #C88387 86%, var(--color-motif-deep));
+--color-envelope-base: color-mix(in srgb, var(--palette-sunset-peach) 86%, var(--color-motif-deep));
 
 /* Lit edges */
---color-envelope-highlight: color-mix(in srgb, #C88387 60%, white);
+--color-envelope-highlight: color-mix(in srgb, var(--palette-sunset-peach) 60%, white);
 
 /* Flap folds */
---color-envelope-fold: color-mix(in srgb, #C88387 80%, var(--color-motif-deep));
+--color-envelope-fold: color-mix(in srgb, var(--palette-sunset-peach) 80%, var(--color-motif-deep));
 
 /* Shadows */
---color-envelope-shadow: color-mix(in srgb, var(--color-motif-deep) 70%, #C88387);
+--color-envelope-shadow: color-mix(in srgb, var(--color-motif-deep) 70%, var(--palette-sunset-peach));
 
 /* Crease hairlines on the paper */
 --color-envelope-crease: color-mix(in srgb, var(--color-motif-deep) 22%, transparent);
@@ -484,25 +480,22 @@
  * ========================================== */
 
 /* Primary CTA */
---color-primary: #651F2A;
+--color-primary: var(--palette-deep-plum);
 
 /* Primary CTA hover */
---color-primary-hover: #1E2A44;
+--color-primary-hover: color-mix(in srgb, var(--palette-deep-plum) 85%, black);
 
 /* Romantic CTA */
---color-romantic: #C88387;
+--color-romantic: var(--palette-terracotta-rose);
 
 /* Romantic hover */
---color-romantic-hover: #651F2A;
+--color-romantic-hover: var(--palette-deep-plum);
 
 /* Soft highlight */
---color-highlight: #D5B293;
+--color-highlight: var(--palette-golden-peach);
 
 /* Highlight, slightly deeper — loader "Save Date", couple names, day number */
---color-highlight-deep: color-mix(in srgb, var(--color-highlight) 60%, var(--color-motif-deep));
-
-/* Decorations (corner leaves, ornaments) — flat silhouette color */
---color-deco: var(--color-motif-accent);
+--color-highlight-deep: color-mix(in srgb, var(--palette-terracotta-rose) 65%, var(--palette-deep-plum));
 
 
 /* ------------------------------------------
@@ -553,31 +546,31 @@
 
 
 /* Section accent */
---color-section-accent: #D5B293;
+--color-section-accent: var(--palette-sunset-coral);
 
 /* Light section */
---color-section-light: #F6D99F;
+--color-section-light: var(--palette-golden-peach);
 
 /* Card background */
---color-card: #F6EADF;
+--color-card: color-mix(in srgb, var(--palette-golden-peach) 35%, white);
 
 /* Border */
---color-border: #A9AAAC;
+--color-border: var(--palette-dusty-mauve);
 
 /* Dark text */
---color-text-dark: #1E2A44;
+--color-text-dark: var(--palette-deep-plum);
 
 /* Deepest ink — high-contrast text on light backgrounds (loader, envelope, buttons) */
---color-ink-deep: #1E2A44;
+--color-ink-deep: var(--palette-deep-plum);
 
 /* Deep accent ink — script words, small labels on light backgrounds */
---color-ink-accent: #651F2A;
+--color-ink-accent: var(--palette-deep-plum);
 
 /* Muted text */
 --color-text-muted:
     color-mix(
         in srgb,
-        #1E2A44 60%,
+        var(--palette-deep-plum) 60%,
         white
     );
 
@@ -639,9 +632,9 @@
 
 
 /* Delete / danger — romantic coral family, darkened for contrast */
---color-dash-danger: color-mix(in srgb, var(--color-romantic-deep) 45%, #651F2A);
+--color-dash-danger: color-mix(in srgb, var(--palette-terracotta-rose) 85%, var(--palette-deep-plum));
 
---color-dash-danger-text: color-mix(in srgb, var(--color-romantic-deep) 35%, #651F2A);
+--color-dash-danger-text: color-mix(in srgb, var(--palette-terracotta-rose) 65%, var(--palette-deep-plum));
 
 --color-dash-danger-soft: color-mix(in srgb, var(--color-romantic-blush) 35%, white);
 
@@ -659,103 +652,18 @@
 
 
 /*
-    DEEP COCOA BROWN
-    #835643
+    COLOR BALANCE (design guidance for visual coverage)
 
-    Use for:
-    - Buttons
-    - Important headings
-    - Icons
-    - Navigation
-    - Strong text
-    - Primary UI elements
+    Golden Peach    #FFB978  25% - Large warm surfaces and highlights
+    Sunset Peach    #FFA47F  20% - Romantic sections and envelope paper
+    Sunset Coral    #F17C59  15% - Decorative accents and section details
+    Terracotta Rose #B65E50  15% - Script accents, floral lines and hover details
+    Dusty Mauve     #AC7385  15% - Floral elements, borders and soft accents
+    Deep Plum       #644657  10% - Headings, body text, buttons and QR codes
 
+    Light paper surfaces are peach tints mixed with white.
+    Percentages guide the visual balance; they are not opacity values.
 
-    DEEP COCOA BROWN
-    #835643
-
-    Use for:
-    - Hero couple names
-    - Main heading
-    - Dark overlays
-    - Strong contrast elements
-
-
-    MUTED BEIGE TAUPE
-    #CBAFA1
-
-    Use for:
-    - Decorative leaves
-    - Lines
-    - Borders
-    - Secondary buttons
-    - Section accents
-
-
-    DUSTY BLUSH PINK
-    #E3CAC5
-
-    Use for:
-    - Soft backgrounds
-    - Decorative circles
-    - Image overlays
-    - Subtle cards
-
-
-    TERRACOTTA NUDE
-    #C48C73
-
-    Use for:
-    - Romantic script
-    - Floral elements
-    - Small highlights
-    - Important decorative details
-
-
-    DEEP COCOA BROWN
-    #835643
-
-    Use sparingly for:
-    - Hover states
-    - Active states
-    - Small emphasis
-
-
-    DUSTY BLUSH PINK
-    #E3CAC5
-
-    Use for:
-    - Secondary decorative elements
-    - Small badges
-    - Accent backgrounds
-    - Romantic highlights
-
-
-    DUSTY BLUSH PINK
-    #E3CAC5
-
-    Use for:
-    - Flowers
-    - Soft decorations
-    - Background shapes
-
-
-    MUTED BEIGE TAUPE
-    #CBAFA1
-
-    Use for:
-    - Borders
-    - Paper texture
-    - Neutral decorative elements
-
-
-    WARM IVORY
-    #F2E9E2
-
-    Use for:
-    - Main page background
-    - Linen sections
-    - Large negative spaces
 */
 
   /* ─────────────────────────────────────────────────────────── */
@@ -774,7 +682,7 @@
   --color-primary-foreground: var(--primary-foreground);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
-  /* Added sage color to theme */
+  /* Legacy sage alias for sunset peach */
   --color-sage: var(--sage);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
@@ -802,6 +710,12 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --color-golden-peach: var(--palette-golden-peach);
+  --color-sunset-peach: var(--palette-sunset-peach);
+  --color-sunset-coral: var(--palette-sunset-coral);
+  --color-terracotta-rose: var(--palette-terracotta-rose);
+  --color-dusty-mauve: var(--palette-dusty-mauve);
+  --color-deep-plum: var(--palette-deep-plum);
 }
 
 @layer base {
@@ -839,16 +753,6 @@ html {
   mask-repeat: no-repeat;
   -webkit-mask-position: center;
   mask-position: center;
-}
-
-/* Botanical decorations follow the motif (see --deco-filter). Matches corner
-   decos and eucalyptus sprigs only — not the wax seal or couple illustration.
-   The encoded variants cover images served through next/image. */
-img[src*="-deco.png"],
-img[src*="/lovestorydeco/"],
-img[src*="-deco.png&"],
-img[src*="%2Flovestorydeco%2F"] {
-  filter: var(--deco-filter);
 }
 
 /* Couple names only — Anastasia Script (public/fonts/AnastasiaScript.ttf). */
@@ -914,17 +818,17 @@ img[src*="%2Flovestorydeco%2F"] {
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: color-mix(in srgb, var(--palette-golden-peach) 20%, white);
 }
 
 /* Updated scrollbar color to primary */
 ::-webkit-scrollbar-thumb {
-  background: #835643;
+  background: var(--palette-deep-plum);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #D8B0B0;
+  background: var(--palette-sunset-peach);
 }
 
 /* Shimmer animation for countdown cards */
@@ -1009,7 +913,7 @@ img[src*="%2Flovestorydeco%2F"] {
 
 /* Countdown gradient text — blush pink */
 .countdown-gradient-text * {
-  background: linear-gradient(180deg, #F6D3D8 0%, #E3A3AE 100%);
+  background: linear-gradient(180deg, var(--palette-golden-peach) 0%, var(--palette-sunset-coral) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -1022,7 +926,7 @@ img[src*="%2Flovestorydeco%2F"] {
 }
 
 .bg-wedding-paper {
-  background-color: #FAF4F4;
+  background-color: color-mix(in srgb, var(--palette-sunset-peach) 15%, white);
 }
 
 .text-wedding-brown {
@@ -1030,7 +934,7 @@ img[src*="%2Flovestorydeco%2F"] {
 }
 
 .text-wedding-paper {
-  color: #FAF4F4;
+  color: color-mix(in srgb, var(--palette-sunset-peach) 15%, white);
 }
 
 /* Font utilities for Love Story section */
@@ -1138,7 +1042,7 @@ img[src*="%2Flovestorydeco%2F"] {
   inset: 0;
   transform: rotateY(180deg);
   z-index: 0;
-  box-shadow: inset 0 0 24px rgba(15, 28, 63, 0.06);
+  box-shadow: inset 0 0 24px rgba(100, 70, 87, 0.06);
 }
 
 .album-flipbook-page-turning {
@@ -1148,15 +1052,15 @@ img[src*="%2Flovestorydeco%2F"] {
 @keyframes album-page-turn-out {
   0% {
     transform: rotateY(0deg);
-    box-shadow: 0 6px 28px -8px rgba(15, 28, 63, 0.16);
+    box-shadow: 0 6px 28px -8px rgba(100, 70, 87, 0.16);
   }
   45% {
     transform: rotateY(-92deg);
-    box-shadow: -12px 6px 36px -6px rgba(15, 28, 63, 0.22);
+    box-shadow: -12px 6px 36px -6px rgba(100, 70, 87, 0.22);
   }
   100% {
     transform: rotateY(-180deg);
-    box-shadow: 0 2px 12px -4px rgba(15, 28, 63, 0.1);
+    box-shadow: 0 2px 12px -4px rgba(100, 70, 87, 0.1);
   }
 }
 
@@ -1185,8 +1089,8 @@ img[src*="%2Flovestorydeco%2F"] {
 /* Story section — shared flip stage for portrait spreads and landscape singles */
 .album-flipbook-story-shell {
   box-shadow:
-    0 2px 4px rgba(15, 28, 63, 0.06),
-    0 12px 40px -8px rgba(15, 28, 63, 0.18),
+    0 2px 4px rgba(100, 70, 87, 0.06),
+    0 12px 40px -8px rgba(100, 70, 87, 0.18),
     inset 0 0 0 1px rgba(255, 255, 255, 0.35);
 }
 
@@ -1199,8 +1103,8 @@ img[src*="%2Flovestorydeco%2F"] {
 /* Open-book spread — two portrait photos per page */
 .album-flipbook-spread-shell {
   box-shadow:
-    0 2px 4px rgba(15, 28, 63, 0.06),
-    0 12px 40px -8px rgba(15, 28, 63, 0.18),
+    0 2px 4px rgba(100, 70, 87, 0.06),
+    0 12px 40px -8px rgba(100, 70, 87, 0.18),
     inset 0 0 0 1px rgba(255, 255, 255, 0.4);
 }
 
@@ -1215,15 +1119,15 @@ img[src*="%2Flovestorydeco%2F"] {
   transform: translateX(-50%);
   background: linear-gradient(
     to right,
-    rgba(15, 28, 63, 0.14),
-    rgba(15, 28, 63, 0.04) 35%,
+    rgba(100, 70, 87, 0.14),
+    rgba(100, 70, 87, 0.04) 35%,
     rgba(255, 255, 255, 0.35) 50%,
-    rgba(15, 28, 63, 0.04) 65%,
-    rgba(15, 28, 63, 0.14)
+    rgba(100, 70, 87, 0.04) 65%,
+    rgba(100, 70, 87, 0.14)
   );
   box-shadow:
-    -2px 0 6px rgba(15, 28, 63, 0.08),
-    2px 0 6px rgba(15, 28, 63, 0.08);
+    -2px 0 6px rgba(100, 70, 87, 0.08),
+    2px 0 6px rgba(100, 70, 87, 0.08);
 }
 
 .album-flipbook-half {
@@ -1233,11 +1137,11 @@ img[src*="%2Flovestorydeco%2F"] {
 }
 
 .album-flipbook-half-left {
-  box-shadow: inset -6px 0 12px -8px rgba(15, 28, 63, 0.1);
+  box-shadow: inset -6px 0 12px -8px rgba(100, 70, 87, 0.1);
 }
 
 .album-flipbook-half-right {
-  box-shadow: inset 6px 0 12px -8px rgba(15, 28, 63, 0.1);
+  box-shadow: inset 6px 0 12px -8px rgba(100, 70, 87, 0.1);
 }
 
 .album-flipbook-blank-page {
@@ -1322,7 +1226,7 @@ img[src*="%2Flovestorydeco%2F"] {
   .dash-sheet { animation: none; }
 }
 
-/* Elegant scrolling inside the dashboard: thin sage scrollbars, smooth + contained */
+/* Elegant scrolling inside the dashboard: thin coral scrollbars, smooth + contained */
 .dashboard-root,
 .dashboard-root * {
   scrollbar-width: thin;
@@ -1377,12 +1281,9 @@ img[src*="%2Flovestorydeco%2F"] {
 }
 
 
-/* Flat-tinted decoration image (components/tinted-deco.tsx) — color: --color-deco */
+/* Decoration images retain their original colors (components/tinted-deco.tsx). */
 .tinted-deco {
   display: block;
-  background-color: var(--color-deco);
-  -webkit-mask: var(--deco-src) center / 100% 100% no-repeat;
-  mask: var(--deco-src) center / 100% 100% no-repeat;
   user-select: none;
   pointer-events: none;
 }
@@ -1391,7 +1292,6 @@ img[src*="%2Flovestorydeco%2F"] {
   display: block;
   width: 100%;
   height: auto;
-  visibility: hidden;
 }
 
 
@@ -1440,7 +1340,7 @@ img[src*="%2Flovestorydeco%2F"] {
 /* --------------------------------------------------------------------------
    Special invitation — page frame (components/proposal-page.tsx)
    Corner decorations pinned to the screen corners, behind the card.
-   Color: --color-deco (TintedDeco). Size: --invite-corner-size.
+   Original image colors (TintedDeco). Size: --invite-corner-size.
    -------------------------------------------------------------------------- */
 .invite-corners {
   position: fixed;

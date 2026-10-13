@@ -172,10 +172,6 @@ const DRESS_CODE_PALETTE: AttireColor[] = [
 ];
 
 
-
-
-
-
 const ATTIRE = {
   show: ["sponsors", "entourage", "guests"] as AttireGroupId[],
 
@@ -243,7 +239,7 @@ const ATTIRE = {
 
 // ── Website address (used for QR codes, link previews, table finder) ────────
 // NEXT_PUBLIC_SITE_URL (env) overrides this when set.
-const SITE_URL = "https://ivanne-and-claudine.weddinginvitationrsvp.com/"
+const SITE_URL = "https://jaefranz-and-rosanne-v2.vercel.app/"
 // Image shown when the link is shared (Facebook, Messenger, Viber, X, …) — 1200×630 JPG in /public
 const LINK_PREVIEW_IMAGE = "/Details/preview-img (1).png"
 
@@ -257,9 +253,9 @@ const DISPLAY_MODE = "plain" as "photos" | "plain"
 
 // ── Shared images ───────────────────────────────────────────────────────────
 const BRAND = {
-  monogram: "/monogram/monogram-new.png", // monogram (loader, envelope, closing)
+  monogram: "/monogram/new-monogram.png", // monogram (loader, envelope, closing)
   coupleNameImage: "/Details/newcoupelNames.png", // couple-name lettering (loader, envelope)
-  seal: "/monogram/seal-new.png", // envelope wax seal
+  seal: "/monogram/new-seal.png", // envelope wax seal
   backgroundMusic: "/background_music/Goodness Of God X Oceans X Gratitude (Wedding Entrance version).mp3",
 }
 
@@ -281,14 +277,14 @@ const COUPLE_PHOTOS = [
 // Change a path here to swap it on every section at once.
 // To change ONE section only, override it there, e.g. decos: { ...SECTION_DECOS, footerVine: "" }
 const DECOR = {
-  cornerTopLeft: "/deco/top-left-deco.png",
-  cornerTopRight: "/deco/top-right-deco.png",
-  cornerBottomLeft: "/deco/bottom-left-deco.png",
-  cornerBottomRight: "/deco/bottom-right-deco.png",
-  headerOrnament: "/deco/lovestorydeco/Elegant-Eucalyptus-centerdot.png", // small sprig above titles
-  footerVine: "/deco/lovestorydeco/Elegant-Eucalyptus-bottom.png", // long vine at section ends
-  sideLeft: "/deco/lovestorydeco/Elegant-Eucalyptus-Left.png", // love story side sprigs
-  sideRight: "/deco/lovestorydeco/Elegant-Eucalyptus-Right.png",
+  cornerTopLeft: "/deco/flower-top-left.png",
+  cornerTopRight: "/deco/flower-top-right.png",
+  cornerBottomLeft: "/deco/flower-bot-l.png",
+  cornerBottomRight: "/deco/flower-bot-r.png",
+  headerOrnament: "/deco/lovestorydeco/flower-center.png", // small sprig above titles
+  footerVine: "/deco/lovestorydeco/flower-middle.png", // long vine at section ends
+  sideLeft: "/deco/lovestorydeco/card-leaf-l.png", // love story side sprigs
+  sideRight: "/deco/lovestorydeco/card-leaf-r.png",
 }
 
 // The four corners as one set
@@ -314,7 +310,7 @@ const COUPLE_LABEL = `${COUPLE.groomNickname} & ${COUPLE.brideNickname}`
    ============================================================================ */
 
 // Principal sponsors Google Apps Script — used by the main page and /inviteone
-const SPONSORS_API = "https://script.google.com/macros/s/AKfycbzpIMdH4ASCzch4vtmw7URHvPD5Q4AtGLz0tqpevalrtKWBPzQONJYsFFxk9LeHj2dy/exec"
+const SPONSORS_API = "https://script.google.com/macros/s/AKfycbzWvjnZtJyda0eLKUEU2GvCs5LjjEgx4v40uJLOoi2qfynuDf-flIaW5saJOd5KIlEY/exec"
 
 export const siteConfig = {
   siteUrl: SITE_URL,
@@ -325,15 +321,15 @@ export const siteConfig = {
     backgroundMusic: BRAND.backgroundMusic,
   },
   googleAPI:{
-    messageForm: "https://docs.google.com/forms/d/e/1FAIpQLSeWdM9ejwjSaRuagEHWgTp1Mawflp_PnqG-VATHy8mYi0m9CA/formResponse",   //done
-    message: "https://script.google.com/macros/s/AKfycbyVvIeiPxEJuFR2ffFbV3ehIZuOiqprgudVNaKVcQwWTtfduIKzBoaA-ycqllRtcuyj/exec",  //done
-    guestList: "https://script.google.com/macros/s/AKfycbxuL_2IhMmL8kA7k8Mrkrl5NgfC49-bUCw0i01Q-mx8uoIgDg9g8DWEPA2N1KbWd61P/exec",  //done
-    guestRequest: "https://script.google.com/macros/s/AKfycbxhcs7yr2kHdTd9ZCiKpUgtmC0MsRTeR6HjKRmxuMjKz5e_NU0rE1dUkxMH6QaKC_0/exec",   //done
-    entourage: "https://script.google.com/macros/s/AKfycby-U_6dVWcA0BinbzmF_W_y7W-WUZ8vOWCD9ZHysWr0qFrJBMCB15G5egLbcJ9xwKuo/exec",  //done
+    messageForm: "https://docs.google.com/forms/d/e/1FAIpQLSejG0_zp1AiraJyCU5vqsOI9T_FVumajRjSV3CUW0FGP2-BfA/formResponse",   //done
+    message: "https://script.google.com/macros/s/AKfycbzVQM11kIFPcJQOvKzY1SoJ4y89bmMdkkrQ-45yA0SAJb0V5n86IEUt9HHrh74yOQ/exec",  //done
+    guestList: "https://script.google.com/macros/s/AKfycbx7Zf_GDqqC_gPfD1vwWFKcpmvvleGrrEBrlqaJnDDaPG5PtDjTIpbNhFRYfzJsuQGq/exec", //done  
+    guestRequest: "https://script.google.com/macros/s/AKfycbxgAwu1_fw5v2guDN_uiqkLIThWU_eB6WoUl91caK6B5P3IizPyzgCfR4egFIDgh-BV/exec", //done  
+    entourage: "https://script.google.com/macros/s/AKfycbwRUk2nMq4RRoHT61qc7WsbJ5ywmoUVTYF-qXF0QR7ycT_EX90_c01hoCbZuPeYRKmm/exec",  //done
     sponsors: SPONSORS_API,  //done 
     // Principal sponsors shown on /inviteone and /invitetwo (entourage section)
     sponsorsInviteOne: SPONSORS_API, // same sheet as sponsors above
-    sponsorsInviteTwo: "https://script.google.com/macros/s/AKfycbzpIMdH4ASCzch4vtmw7URHvPD5Q4AtGLz0tqpevalrtKWBPzQONJYsFFxk9LeHj2dy/exec",
+    sponsorsInviteTwo: "https://script.google.com/macros/s/AKfycbzWvjnZtJyda0eLKUEU2GvCs5LjjEgx4v40uJLOoi2qfynuDf-flIaW5saJOd5KIlEY/exec",
 ////google share 
     googleShare: "https://docs.google.com/spreadsheets/d/1dHiDweo9s5cvXUA5vD0kRoKkngjl8QWo6fO6P5umM5g/edit?usp=sharing",
     videoMessageForm:
@@ -1024,7 +1020,7 @@ export const siteConfig = {
     // {couple} → "Groom & Bride" nicknames. "" hides a line or image.
     qrCard: {
       coupleNameImage: BRAND.coupleNameImage, // unused: the card sets the names in type like the loader
-      coupleImage: "/Details/coupleImages.png", // couple illustration beside the text
+      coupleImage: "/Details/couple-image.png", // couple illustration beside the text
       eyebrow: "The wedding of",
       title: "Find Your Table",
       script: "please be seated",
@@ -1394,8 +1390,8 @@ Now, as they prepare to say yes before God and the people they love most, Cather
     decos: { ...CORNER_DECOS, headerOrnament: DECOR.headerOrnament },
     embedUrl:
     //https://open.spotify.com/embed/playlist/5sT43YjdM8pJ3xtEkrxyEY?utm_source=generator&si=e5e64aa63fd04356
-      "https://open.spotify.com/embed/playlist/0ODc8euexYUvftVVGYEzca?utm_source=generator&si=c20e2208e4fe4396",
-    spotifyUrl: "https://open.spotify.com/playlist/0ODc8euexYUvftVVGYEzca?si=eGHBlaWIR_WrVEhVa-CLQg",
+      "https://open.spotify.com/embed/playlist/0ODc8euexYUvftVVGYEzca?utm_source=generator&si=5558c3a95e27452b  ",
+    spotifyUrl: "https://open.spotify.com/playlist/0ODc8euexYUvftVVGYEzca?si=Epbb7wkLSFCTUaww9Xax6w",
   },
   // Closing "See you there!" section (components/sections/see-you-there.tsx).
   //   photos mode (loadingScreen.display "photos") → full-screen couple photo
