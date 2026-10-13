@@ -2,8 +2,15 @@
   "name": "my-v0-project",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "pnpm@9.15.9",
+  "pnpm": {
+    "patchedDependencies": {
+      "next@15.2.6": "patches/next@15.2.6.patch"
+    }
+  },
   "scripts": {
     "build": "next build",
+    "test:fonts": "node --test scripts/next-font-loader.test.cjs",
     "dev": "next dev",
     "lint": "eslint .",
     "start": "next start",
