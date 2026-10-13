@@ -981,7 +981,7 @@ export const siteConfig = {
     ],
     thankYou: "", // "" hides the line
     signOff: "With joyful hearts,",
-    signature: "Ellaine and Carl", // "" falls back to "{groom} & {bride}" nicknames
+    signature: "Jaefranz and Rosanne", // "" falls back to "{groom} & {bride}" nicknames
     // Colors — any CSS color or a palette token from app/globals.css (e.g. "var(--color-motif-accent)")
     colors: {
       title: "var(--color-welcome-navy)",                                              // "Gift Guide", account names
