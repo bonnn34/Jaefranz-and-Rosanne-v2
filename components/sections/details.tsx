@@ -11,7 +11,7 @@ import localFont from "next/font/local"
 import { Cinzel } from "next/font/google"
 import { Shirt, Copy, Check, Navigation, Heart, MapPin } from "lucide-react"
 import { motion, useReducedMotion, type Variants } from "motion/react"
-import { PlainBubbles } from "@/components/loader/PlainBubbles"
+import { SunriseSky } from "@/components/loader/SunriseSky"
 import { TintedDeco } from "@/components/tinted-deco"
 
 const cinzel = Cinzel({
@@ -44,13 +44,12 @@ const C = {
   light: "var(--color-motif-soft)",
 } as const
 
-// Section background = the hero's circle pattern (PlainBubbles paints its own aqua base)
-const sectionBg = "var(--color-bg-pattern-base)"
-
-// Text sitting directly on the circle pattern (colors: globals.css → --color-on-pattern*)
+// Text sitting directly on the sunrise background: maroon ink with a soft
+// champagne halo (components/loader/sunrise-sky.css → --sr-*)
 const onBg = {
-  color: "var(--color-on-pattern)",
-  textShadow: "0 1px 0 var(--color-on-pattern-glow), 0 2px 12px var(--color-on-pattern-glow)",
+  color: "var(--sr-maroon)",
+  textShadow:
+    "0 1px 0 color-mix(in srgb, var(--sr-champagne) 85%, transparent), 0 2px 14px color-mix(in srgb, var(--sr-champagne) 85%, transparent)",
 } as const
 
 const hairline = "color-mix(in srgb, var(--color-motif-medium) 55%, transparent)"
@@ -82,7 +81,7 @@ function SectionIconDivider({ icon }: { icon: ReactNode }) {
     <div className="flex items-center justify-center gap-2 pt-1 sm:pt-2">
       <span
         className="h-px w-10 sm:w-16 md:w-20"
-        style={{ background: "var(--color-on-pattern-line)" }}
+        style={{ background: "color-mix(in srgb, var(--sr-brick) 45%, transparent)" }}
       />
       <span
         className="flex h-7 w-7 items-center justify-center rounded-full sm:h-8 sm:w-8"
@@ -92,7 +91,7 @@ function SectionIconDivider({ icon }: { icon: ReactNode }) {
       </span>
       <span
         className="h-px w-10 sm:w-16 md:w-20"
-        style={{ background: "var(--color-on-pattern-line)" }}
+        style={{ background: "color-mix(in srgb, var(--sr-brick) 45%, transparent)" }}
       />
     </div>
   )
@@ -755,11 +754,10 @@ export function Details() {
 
   return (
     <div
-      className={`${theSeasons.variable} ${aboveTheBeyond.variable} relative w-full overflow-hidden`}
-      style={{ background: sectionBg }}
+      className={`sunrise-wash ${theSeasons.variable} ${aboveTheBeyond.variable} relative w-full overflow-hidden`}
     >
-      {/* Same circle pattern as the hero */}
-      <PlainBubbles />
+      {/* Same watercolor sunrise as the loader + hero, as a band at the top */}
+      <SunriseSky band />
       <Section
         id="details"
         className="relative z-10 pt-14 pb-12 sm:pt-16 sm:pb-14 md:pt-20 md:pb-16 lg:pt-24 lg:pb-20 overflow-hidden"

@@ -1,0 +1,231 @@
+/* Sunrise backdrop for the loader + envelope hero (components/loader/SunriseSky.tsx).
+   Palette: Silver grey, Navy, Maroon, Muted rose, Brick, Soft amber, Butter, Champagne. */
+
+:root {
+  --sr-silver: #B9B7BC;
+  --sr-navy: #2E3A55;
+  --sr-maroon: #6B2E38;
+  --sr-rose: #C48A8A;
+  --sr-brick: #A4533F;
+  --sr-amber: #E8A867;
+  --sr-butter: #F5E3A8;
+  --sr-champagne: #F3E3CB;
+}
+
+.sunrise-sky {
+  /* The sun's position inside the painting (x, y as a share of the image).
+     The painting uses background-position at the same point, so with
+     "cover" the sun lands on exactly this spot of the screen at any size. */
+  --sr-sun-x: 50%;
+  --sr-sun-y: 48%;
+  --sr-sun-size: min(34vmin, 260px);
+
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background: #FCE9D7;
+}
+
+.sunrise-sky--fixed {
+  position: fixed;
+}
+
+.sunrise-sky > * {
+  position: absolute;
+  inset: 0;
+}
+
+/* The painting, drifting in very slowly toward the sun */
+.sunrise-sky__painting {
+  background: url("/backgrounds/sunrise-watercolor.webp") var(--sr-sun-x) var(--sr-sun-y) / cover no-repeat;
+  transform-origin: var(--sr-sun-x) var(--sr-sun-y);
+  animation: sunrise-drift 40s ease-in-out infinite alternate;
+}
+
+@keyframes sunrise-drift {
+  from { transform: scale(1); }
+  to { transform: scale(1.06); }
+}
+
+/* Soft sunbeams fanning from the sun, turning slowly */
+.sunrise-sky__rays {
+  inset: auto;
+  left: var(--sr-sun-x);
+  top: var(--sr-sun-y);
+  width: 260vmax;
+  height: 260vmax;
+  translate: -50% -50%;
+  background: repeating-conic-gradient(
+    from 0deg,
+    color-mix(in srgb, #FFF4D6 55%, transparent) 0deg 3deg,
+    transparent 3deg 11deg,
+    color-mix(in srgb, #FFF4D6 30%, transparent) 11deg 13deg,
+    transparent 13deg 22deg
+  );
+  -webkit-mask-image: radial-gradient(circle, black 2%, rgb(0 0 0 / 45%) 12%, transparent 30%);
+  mask-image: radial-gradient(circle, black 2%, rgb(0 0 0 / 45%) 12%, transparent 30%);
+  mix-blend-mode: screen;
+  opacity: 0.55;
+  animation:
+    sunrise-rays-turn 140s linear infinite,
+    sunrise-rays-pulse 7s ease-in-out infinite alternate;
+}
+
+@keyframes sunrise-rays-turn {
+  to { rotate: 360deg; }
+}
+
+@keyframes sunrise-rays-pulse {
+  from { opacity: 0.35; }
+  to { opacity: 0.65; }
+}
+
+/* Wide warm halo that breathes */
+.sunrise-sky__glow {
+  background:
+    radial-gradient(
+      calc(var(--sr-sun-size) * 1.6) calc(var(--sr-sun-size) * 1.2) at var(--sr-sun-x) var(--sr-sun-y),
+      color-mix(in srgb, #FFF1C9 75%, transparent) 0%,
+      color-mix(in srgb, var(--sr-butter) 35%, transparent) 45%,
+      transparent 100%
+    ),
+    radial-gradient(
+      140% calc(var(--sr-sun-size) * 1.1) at var(--sr-sun-x) calc(var(--sr-sun-y) + 4%),
+      color-mix(in srgb, var(--sr-amber) 22%, transparent) 0%,
+      transparent 70%
+    );
+  mix-blend-mode: screen;
+  transform-origin: var(--sr-sun-x) var(--sr-sun-y);
+  animation: sunrise-breathe 6s ease-in-out infinite alternate;
+}
+
+@keyframes sunrise-breathe {
+  from { opacity: 0.7; transform: scale(1); }
+  to { opacity: 1; transform: scale(1.08); }
+}
+
+/* Bright core where the sun meets the horizon, flaring gently */
+.sunrise-sky__core {
+  background: radial-gradient(
+    calc(var(--sr-sun-size) * 0.45) calc(var(--sr-sun-size) * 0.28) at var(--sr-sun-x) calc(var(--sr-sun-y) + 1.5%),
+    rgb(255 255 245 / 95%) 0%,
+    rgb(255 246 214 / 55%) 40%,
+    transparent 100%
+  );
+  mix-blend-mode: screen;
+  animation: sunrise-flare 4.5s ease-in-out infinite alternate;
+}
+
+@keyframes sunrise-flare {
+  from { opacity: 0.65; }
+  to { opacity: 1; }
+}
+
+/* Light glinting along the cloud bands and horizon, sweeping outward */
+.sunrise-sky__glints {
+  inset: auto 0;
+  top: calc(var(--sr-sun-y) - 6%);
+  height: 14%;
+  background:
+    linear-gradient(90deg, transparent 0%, rgb(255 248 225 / 70%) 50%, transparent 100%) 0 30% / 40% 2px no-repeat,
+    linear-gradient(90deg, transparent 0%, rgb(255 248 225 / 60%) 50%, transparent 100%) 0 55% / 55% 2px no-repeat,
+    linear-gradient(90deg, transparent 0%, rgb(255 248 225 / 50%) 50%, transparent 100%) 0 78% / 35% 1px no-repeat;
+  filter: blur(1px);
+  mix-blend-mode: screen;
+  -webkit-mask-image: radial-gradient(60% 100% at 50% 50%, black 0%, transparent 100%);
+  mask-image: radial-gradient(60% 100% at 50% 50%, black 0%, transparent 100%);
+  animation: sunrise-glints 9s ease-in-out infinite;
+}
+
+@keyframes sunrise-glints {
+  0% { background-position: 50% 30%, 50% 55%, 50% 78%; opacity: 0; }
+  20% { opacity: 1; }
+  100% { background-position: -60% 30%, 160% 55%, -40% 78%; opacity: 0; }
+}
+
+/* Morning mist drifting low across the valleys */
+.sunrise-sky__mist {
+  top: auto;
+  height: 45%;
+  background:
+    radial-gradient(40% 30% at 20% 30%, rgb(255 244 234 / 60%) 0%, transparent 100%),
+    radial-gradient(45% 28% at 75% 45%, rgb(255 244 234 / 55%) 0%, transparent 100%),
+    radial-gradient(35% 25% at 50% 70%, rgb(255 244 234 / 50%) 0%, transparent 100%);
+  filter: blur(14px);
+  animation: sunrise-mist 26s ease-in-out infinite alternate;
+}
+
+@keyframes sunrise-mist {
+  from { transform: translateX(-4%); }
+  to { transform: translateX(4%); }
+}
+
+/* Dawn: the scene starts dim and lifts as the sun comes up (loader only) */
+.sunrise-sky__dawn {
+  background: color-mix(in srgb, var(--sr-rose) 40%, var(--sr-silver));
+  mix-blend-mode: multiply;
+  animation: sunrise-dawn 5s ease-out forwards;
+}
+
+@keyframes sunrise-dawn {
+  from { opacity: 0.55; }
+  to { opacity: 0; }
+}
+
+/* Envelope hero comes after the loader: already light, no dawn replay */
+.sunrise-sky--fixed .sunrise-sky__dawn {
+  display: none;
+}
+
+/* Band: a screen-high slice of sunrise at the top of a tall section, fading
+   out into the section background (which paints the sunrise wash, see
+   .sunrise-wash) */
+.sunrise-sky--band {
+  bottom: auto;
+  height: min(100svh, 980px);
+  background: transparent;
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 62%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 0%, #000 62%, transparent 100%);
+}
+
+.sunrise-sky--band .sunrise-sky__dawn {
+  display: none;
+}
+
+/* Soft peach-and-champagne wash for the length of a tall section, matching
+   the painting's own paper tone */
+.sunrise-wash {
+  background:
+    radial-gradient(120% 30% at 50% 55%, color-mix(in srgb, var(--sr-butter) 22%, transparent) 0%, transparent 100%),
+    linear-gradient(
+      180deg,
+      #FCE9D7 0%,
+      color-mix(in srgb, #FCE9D7 82%, var(--sr-rose)) 45%,
+      color-mix(in srgb, #FCE9D7 88%, var(--sr-amber)) 75%,
+      #FCE9D7 100%
+    );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sunrise-sky *,
+  .sunrise-sky > * {
+    animation: none !important;
+  }
+  .sunrise-sky__dawn,
+  .sunrise-sky__glints {
+    display: none;
+  }
+}
+
+/* See You There: warm the painting toward late-afternoon (golden-hour) light */
+.sunrise-sky__golden {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(70% 45% at 50% 48%, color-mix(in srgb, var(--sr-butter) 30%, transparent) 0%, transparent 100%),
+    color-mix(in srgb, var(--sr-amber) 16%, transparent);
+  mix-blend-mode: multiply;
+}

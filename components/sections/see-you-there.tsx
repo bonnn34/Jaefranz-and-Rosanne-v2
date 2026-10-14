@@ -5,7 +5,7 @@ import localFont from "next/font/local"
 import Image from "next/image"
 import { motion, useReducedMotion, type Variants } from "motion/react"
 import { useSiteConfig } from "@/hooks/use-site-config"
-import { PlainBubbles } from "@/components/loader/PlainBubbles"
+import { SunriseSky } from "@/components/loader/SunriseSky"
 import { TintedDeco } from "@/components/tinted-deco"
 
 const cinzel = Cinzel({
@@ -35,14 +35,18 @@ const photoTitleShadow =
 const CORNER_DECO_CLASS =
   "block h-auto w-auto max-w-[150px] sm:max-w-[230px] md:max-w-[300px] lg:max-w-[360px] select-none opacity-90"
 
-// Plain background = the hero's circle pattern (PlainBubbles paints its own aqua base)
-const plainBg = "var(--color-bg-pattern-base)"
-
-// Text sitting directly on the circle pattern (colors: globals.css → --color-on-pattern*)
-const onBg = {
-  color: "var(--color-on-pattern)",
-  textShadow: "0 1px 0 var(--color-on-pattern-glow), 0 2px 12px var(--color-on-pattern-glow)",
+// Golden-hour inks over the warmed sunrise (components/loader/sunrise-sky.css →
+// --sr-*): maroon title, brick script + eyebrow, deep navy-maroon message,
+// each with a soft champagne halo so it reads over the sunlight
+const halo =
+  "0 1px 0 color-mix(in srgb, var(--sr-champagne) 85%, transparent), 0 2px 16px color-mix(in srgb, var(--sr-champagne) 90%, transparent)"
+const ink = {
+  title: { color: "var(--sr-maroon)", textShadow: halo },
+  script: { color: "var(--sr-brick)", textShadow: halo },
+  eyebrow: { color: "var(--sr-brick)", textShadow: halo },
+  message: { color: "color-mix(in srgb, var(--sr-navy) 85%, var(--sr-maroon))", textShadow: halo },
 } as const
+const line = "color-mix(in srgb, var(--sr-brick) 55%, transparent)"
 
 const stagger: Variants = {
   hidden: {},
@@ -88,10 +92,11 @@ function PlainSeeYouThere() {
     <section
       id="see-you-there"
       className={`${theSeasons.variable} ${aboveTheBeyond.variable} relative isolate w-full overflow-hidden`}
-      style={{ background: plainBg }}
     >
-      {/* Same circle pattern as the hero */}
-      <PlainBubbles />
+      {/* The full watercolor sunrise warmed to golden hour — a warm send-off.
+          Its light peach base flows straight into the footer's sunrise. */}
+      <SunriseSky />
+      <div className="sunrise-sky__golden z-[1]" aria-hidden />
 
       {/* Corner decorations (from site.ts) */}
       <div className="pointer-events-none absolute left-0 top-0 z-10">
@@ -117,8 +122,8 @@ function PlainSeeYouThere() {
         {plain.eyebrow ? (
           <motion.p
             variants={rise}
-            className={`${cinzel.className} text-[0.65rem] font-semibold uppercase tracking-[0.3em] sm:text-xs`}
-            style={onBg}
+            className={`${cinzel.className} text-[0.65rem] font-semibold uppercase tracking-[0.34em] sm:text-xs`}
+            style={ink.eyebrow}
           >
             {plain.eyebrow}
           </motion.p>
@@ -131,7 +136,7 @@ function PlainSeeYouThere() {
           <span
             aria-hidden
             className={`${theSeasons.className} block uppercase leading-[0.88] tracking-[0.06em] sm:tracking-[0.08em]`}
-            style={{ fontSize: titleSize, ...onBg }}
+            style={{ fontSize: titleSize, ...ink.title }}
           >
             <SpecialCharFont text={content.titleLine1} />
             <br />
@@ -142,33 +147,27 @@ function PlainSeeYouThere() {
         {plain.script ? (
           <motion.p
             variants={rise}
-            className={`${aboveTheBeyond.className} mt-3 text-[1.5rem] leading-tight sm:mt-4 sm:text-[2rem] md:text-[2.35rem]`}
-            style={onBg}
+            className={`${aboveTheBeyond.className} mt-3 text-[1.7rem] leading-tight sm:mt-4 sm:text-[2.25rem] md:text-[2.6rem]`}
+            style={ink.script}
           >
             {fill(plain.script)}
           </motion.p>
         ) : null}
 
         <motion.div variants={rise} className="my-5 flex items-center justify-center gap-2 sm:my-6" aria-hidden>
-          <span className="h-px w-12 sm:w-20" style={{ background: "var(--color-on-pattern-line)" }} />
-          <span className="h-1.5 w-1.5 rotate-45" style={{ background: "var(--color-on-pattern-line)" }} />
-          <span className="h-px w-12 sm:w-20" style={{ background: "var(--color-on-pattern-line)" }} />
+          <span className="h-px w-12 sm:w-20" style={{ background: line }} />
+          <span className="h-1.5 w-1.5 rotate-45" style={{ background: line }} />
+          <span className="h-px w-12 sm:w-20" style={{ background: line }} />
         </motion.div>
 
         {plain.message ? (
           <motion.p
             variants={rise}
             className="font-goudy-italic mx-auto mt-4 max-w-md text-sm leading-relaxed sm:mt-5 sm:text-base"
-            style={{ ...onBg, fontWeight: 600 }}
+            style={{ ...ink.message, fontWeight: 600 }}
           >
             {fill(plain.message)}
           </motion.p>
-        ) : null}
-
-        {plain.decos.footerVine ? (
-          <motion.div variants={rise} className="mt-7 sm:mt-9">
-            <DecoImg src={plain.decos.footerVine} className="mx-auto block h-auto w-56 select-none opacity-90 sm:w-72 md:w-80" />
-          </motion.div>
         ) : null}
       </motion.div>
     </section>

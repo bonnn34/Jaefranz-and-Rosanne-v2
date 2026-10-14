@@ -9,7 +9,7 @@ import { Cinzel } from "next/font/google"
 import { useSiteConfig } from "@/hooks/use-site-config"
 import { fetchUntilReady, isAbortError } from "@/lib/fetch-until-ready"
 import { fetchInvitationList, readCachedInvitationList } from "@/lib/invitation-data"
-import { PlainBubbles } from "@/components/loader/PlainBubbles"
+import { SunriseSky } from "@/components/loader/SunriseSky"
 import { TintedDeco } from "@/components/tinted-deco"
 
 const cinzel = Cinzel({
@@ -29,36 +29,35 @@ const aboveTheBeyond = localFont({
   variable: "--font-above-beyond",
 })
 
-// Palette lives in globals.css → motif / welcome tokens.
-const PAPER = "var(--color-welcome-bg-soft)"
-const ACCENT = "var(--color-motif-accent)"
-const NAVY = "var(--color-ink-deep)"
-const SCRIPT = "var(--color-ink-accent)"
-const BODY = "var(--color-welcome-text)"
-const HAIRLINE = "color-mix(in srgb, var(--color-motif-medium) 60%, transparent)"
+// Sunrise palette (components/loader/sunrise-sky.css → --sr-*): light motif
+// paper card, darker solid inks — maroon names, brick roles/labels, navy body
+const PAPER = "color-mix(in srgb, var(--color-motif-cream) 70%, white)"
+const ACCENT = "var(--sr-brick)"
+const NAVY = "var(--sr-maroon)"
+const SCRIPT = "var(--sr-brick)"
+const BODY = "color-mix(in srgb, var(--sr-navy) 88%, var(--sr-maroon))"
+const HAIRLINE = "color-mix(in srgb, var(--sr-amber) 50%, transparent)"
 
-// Section background = the hero's circle pattern (PlainBubbles paints its own aqua base)
-const sectionBg = "var(--color-bg-pattern-base)"
-
-// Text sitting directly on the circle pattern (colors: globals.css → --color-on-pattern*)
+// Text sitting directly on the sunrise background: maroon with a champagne halo
 const onBg = {
-  color: "var(--color-ink-deep)",
+  color: "var(--sr-maroon)",
   textShadow:
-    "0 0 1px var(--color-on-pattern-glow), 0 1px 0 var(--color-on-pattern-glow), 0 0 14px var(--color-on-pattern-glow), 0 0 26px var(--color-on-pattern-glow)",
+    "0 1px 0 color-mix(in srgb, var(--sr-champagne) 85%, transparent), 0 2px 14px color-mix(in srgb, var(--sr-champagne) 85%, transparent)",
 } as const
 
 const onBgLineStyle = {
-  background: "var(--color-ink-accent)",
+  background: "color-mix(in srgb, var(--sr-brick) 55%, transparent)",
 } as const
 
 const dividerLineStyle = {
-  background: "linear-gradient(to right, transparent, var(--color-motif-medium), transparent)",
+  background: "color-mix(in srgb, var(--sr-brick) 30%, transparent)",
 } as const
 
 const cardStyle = {
   background: PAPER,
+  border: "1px solid color-mix(in srgb, var(--color-motif-yellow) 70%, white)",
   boxShadow:
-    "0 26px 56px -30px color-mix(in srgb, var(--color-welcome-navy) 55%, transparent), inset 0 1px 0 rgb(255 255 255 / 80%)",
+    "0 26px 56px -30px color-mix(in srgb, var(--sr-maroon) 45%, transparent), inset 0 1px 0 rgb(255 255 255 / 80%)",
 } as const
 
 const CORNER_DECO_CLASS =
@@ -78,9 +77,9 @@ function DecoImg({ src, className }: { src: string; className: string }) {
 function OutsideDivider() {
   return (
     <div className="flex items-center justify-center gap-2">
-      <span className="h-px w-10 sm:w-16" style={{ background: "var(--color-ink-accent)" }} />
-      <span className="h-1.5 w-1.5 rotate-45" style={{ background: "var(--color-ink-accent)" }} aria-hidden />
-      <span className="h-px w-10 sm:w-16" style={{ background: "var(--color-ink-accent)" }} />
+      <span className="h-px w-10 sm:w-16" style={{ background: "var(--sr-brick)" }} />
+      <span className="h-1.5 w-1.5 rotate-45" style={{ background: "var(--sr-brick)" }} aria-hidden />
+      <span className="h-px w-10 sm:w-16" style={{ background: "var(--sr-brick)" }} />
     </div>
   )
 }
@@ -636,7 +635,7 @@ export function Entourage({ sponsorsList }: { sponsorsList?: SponsorsList } = {}
       >
         <div
           className="absolute inset-0 opacity-0 group-hover/item:opacity-100 transition-opacity duration-300 rounded-md"
-          style={{ background: "linear-gradient(to right, transparent, color-mix(in srgb, var(--color-motif-silver) 70%, transparent), transparent)" }}
+          style={{ background: "color-mix(in srgb, var(--sr-amber) 14%, transparent)" }}
         />
         <p
           className={`${theSeasons.className} relative ${textAlign} transition-all duration-300 max-w-full break-words`}
@@ -747,11 +746,10 @@ export function Entourage({ sponsorsList }: { sponsorsList?: SponsorsList } = {}
   return (
     <div
       ref={sectionRef}
-      className={`${theSeasons.variable} ${aboveTheBeyond.variable} relative w-full overflow-hidden`}
-      style={{ background: sectionBg }}
+      className={`sunrise-wash ${theSeasons.variable} ${aboveTheBeyond.variable} relative w-full overflow-hidden`}
     >
-      {/* Same circle pattern as the hero */}
-      <PlainBubbles />
+      {/* Same watercolor sunrise as the loader + hero, as a band at the top */}
+      <SunriseSky band />
       <Section
         id="entourage"
         className="relative z-10 overflow-hidden pt-5 pb-5 sm:pt-10 sm:pb-10 md:pt-12 md:pb-12 lg:pt-14 lg:pb-14"

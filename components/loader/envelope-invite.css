@@ -2737,3 +2737,277 @@
   color: var(--invite-script);
   -webkit-text-fill-color: var(--invite-script);
 }
+
+
+/* ==========================================================================
+   Plain mode — sunrise pass (kept last so it wins)
+   Backdrop: components/loader/SunriseSky (--sr-* in sunrise-sky.css), same as
+   the loading screen. Envelope paper: sunrise amber #EC9949 (globals.css →
+   ENVELOPE). Letter card: solid surface, darker solid inks.
+   ========================================================================== */
+
+.env-invite-screen--plain {
+  --env-sr-card: color-mix(in srgb, var(--sr-champagne) 55%, white);
+  --env-sr-line: color-mix(in srgb, var(--sr-brick) 45%, var(--sr-champagne));
+}
+
+/* Envelope: soft warm drop shadow on the sky instead of a grey one */
+.env-invite-screen--plain .env-invite-envelope {
+  filter: drop-shadow(0 22px 34px color-mix(in srgb, var(--sr-maroon) 30%, transparent));
+}
+
+/* Inner deckle border in butter so the amber paper reads as stationery */
+.env-invite-screen--plain .env-invite-front-closed::after {
+  border-color: color-mix(in srgb, var(--sr-butter) 70%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--sr-brick) 22%, transparent);
+}
+
+/* Letter card: one solid surface, solid hairlines */
+.env-invite-screen--plain .env-invite-letter {
+  background: var(--env-sr-card);
+  border: 1px solid var(--env-sr-line);
+  box-shadow: 0 18px 40px -18px color-mix(in srgb, var(--sr-maroon) 40%, transparent);
+}
+
+.env-invite-screen--plain .env-invite-letter-frame {
+  border-color: color-mix(in srgb, var(--sr-amber) 60%, transparent);
+}
+
+.env-invite-screen--plain .env-invite-letter-frame::after {
+  border-color: color-mix(in srgb, var(--sr-rose) 40%, transparent);
+}
+
+/* Darker solid inks on the card */
+.env-invite-screen--plain .env-invite-letter-label__word,
+.env-invite-screen--plain .env-invite-names__nick {
+  color: var(--sr-maroon);
+  -webkit-text-fill-color: var(--sr-maroon);
+}
+
+.env-invite-screen--plain .env-invite-letter-label__script,
+.env-invite-screen--plain .env-invite-names__and {
+  color: var(--sr-brick);
+  -webkit-text-fill-color: var(--sr-brick);
+}
+
+.env-invite-screen--plain .env-invite-letter-date,
+.env-invite-screen--plain .env-invite-letter-invited {
+  color: var(--sr-navy);
+}
+
+/* Text sitting on the sky */
+.env-invite-screen--plain .env-invite-hint,
+.env-invite-screen--plain .env-invite-days-to-go,
+.env-invite-screen--plain .env-invite-reveal-copy h2 {
+  color: var(--sr-navy);
+  text-shadow: 0 1px 10px color-mix(in srgb, var(--sr-champagne) 80%, transparent);
+}
+
+/* Open button: solid maroon */
+.env-invite-screen--plain .env-invite-enter-btn {
+  color: var(--sr-champagne);
+  background: var(--sr-maroon);
+  border-color: var(--sr-maroon);
+  box-shadow: 0 10px 24px color-mix(in srgb, var(--sr-maroon) 40%, transparent);
+}
+
+.env-invite-screen--plain .env-invite-enter-btn:hover {
+  color: var(--sr-champagne);
+  background: color-mix(in srgb, var(--sr-maroon) 82%, black);
+}
+
+.env-invite-screen--plain .env-invite-enter-btn:focus-visible {
+  outline-color: var(--sr-maroon);
+}
+
+
+/* ==========================================================================
+   Plain mode — realistic envelope (kept last so it wins)
+   Colors: globals.css → ENVELOPE (dusty terracotta rose). Each panel is its
+   paper color + soft directional light + an embossed cold-press paper texture. Folds cast soft shadows; edges catch the light.
+   Light comes from the top-left.
+   ========================================================================== */
+.env-invite-screen--plain {
+  /* Cold-press paper: embossed relief lit from the top-left (turbulence +
+     diffuse lighting), blended soft-light over each panel's color */
+  --env-tex-paper: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='p' x='0' y='0' width='100%' height='100%'><feTurbulence type='fractalNoise' baseFrequency='0.035' numOctaves='5' seed='9' stitchTiles='stitch' result='n'/><feDiffuseLighting in='n' lighting-color='white' surfaceScale='2.4' diffuseConstant='0.78'><feDistantLight azimuth='225' elevation='45'/></feDiffuseLighting></filter><rect width='100%' height='100%' filter='url(%23p)'/></svg>");
+  --env-tex-blend: soft-light, normal, normal;
+  --env-tex-size: 240px 240px;
+  --env-ink-shadow: 70 24 20;
+}
+
+/* Closed front: broad soft light from the top-left, a touch of shade bottom-right */
+.env-invite-screen.env-invite-screen--plain .env-invite-front-closed {
+  background:
+    var(--env-tex-paper),
+    radial-gradient(120% 90% at 15% 10%, rgb(255 240 225 / 22%) 0%, transparent 55%),
+    linear-gradient(160deg, transparent 50%, rgb(var(--env-ink-shadow) / 14%) 100%),
+    var(--color-envelope-paper);
+  background-size: var(--env-tex-size), 100% 100%, 100% 100%;
+  background-blend-mode: var(--env-tex-blend);
+  box-shadow:
+    inset 0 1px 0 rgb(255 240 228 / 35%),
+    inset 1px 0 0 rgb(255 240 228 / 18%),
+    inset 0 -2px 3px rgb(var(--env-ink-shadow) / 22%);
+}
+
+.env-invite-screen.env-invite-screen--plain .env-invite-front-closed::before {
+  display: none;
+}
+
+/* Real envelopes have no printed inner frame */
+.env-invite-screen.env-invite-screen--plain .env-invite-front-closed::after {
+  display: none;
+}
+
+/* Side folds on the closed front: lit at the outer edge, deeper toward the seam */
+.env-invite-screen.env-invite-screen--plain .env-invite-fold--bl {
+  background:
+    var(--env-tex-paper),
+    linear-gradient(100deg, rgb(255 236 222 / 16%) 0%, transparent 45%, rgb(var(--env-ink-shadow) / 14%) 100%),
+    var(--color-envelope-fold);
+  background-size: var(--env-tex-size), 100% 100%;
+  background-blend-mode: var(--env-tex-blend);
+}
+
+.env-invite-screen.env-invite-screen--plain .env-invite-fold--br {
+  background:
+    var(--env-tex-paper),
+    linear-gradient(260deg, rgb(255 236 222 / 8%) 0%, transparent 45%, rgb(var(--env-ink-shadow) / 18%) 100%),
+    var(--color-envelope-fold);
+  background-size: var(--env-tex-size), 100% 100%;
+  background-blend-mode: var(--env-tex-blend);
+}
+
+/* Bottom fold overlaps the sides: lighter at its top edge, shaded at the base */
+.env-invite-screen.env-invite-screen--plain .env-invite-fold--b {
+  background:
+    var(--env-tex-paper),
+    linear-gradient(0deg, rgb(var(--env-ink-shadow) / 16%) 0%, transparent 45%, rgb(255 236 222 / 14%) 100%),
+    var(--color-envelope-shadow);
+  background-size: var(--env-tex-size), 100% 100%;
+  background-blend-mode: var(--env-tex-blend);
+}
+
+/* Fold seams: a soft shadow under each crease, a lit edge above it */
+.env-invite-screen.env-invite-screen--plain .env-invite-creases {
+  filter: drop-shadow(0 1.5px 1.5px rgb(var(--env-ink-shadow) / 45%));
+}
+
+.env-invite-screen.env-invite-screen--plain .env-invite-creases line {
+  stroke: rgb(255 238 226 / 30%);
+  stroke-width: 1;
+}
+
+.env-invite-screen.env-invite-screen--plain .env-invite-creases line:nth-child(1),
+.env-invite-screen.env-invite-screen--plain .env-invite-creases line:nth-child(2) {
+  stroke: rgb(255 238 226 / 18%);
+}
+
+/* Top flap: lightest panel, light falling off toward the tip */
+.env-invite-screen.env-invite-screen--plain .env-invite-flap {
+  background:
+    var(--env-tex-paper),
+    linear-gradient(180deg, rgb(255 240 228 / 20%) 0%, transparent 40%, rgb(var(--env-ink-shadow) / 14%) 100%),
+    var(--color-envelope-highlight);
+  background-size: var(--env-tex-size), 100% 100%;
+  background-blend-mode: var(--env-tex-blend);
+  box-shadow: none;
+}
+
+.env-invite-screen.env-invite-screen--plain .env-invite-flap::after {
+  display: none;
+}
+
+/* Soft shadow the closed flap casts on the front: a blurred, slightly lower copy */
+.env-invite-screen.env-invite-screen--plain .env-invite-flap-shadow {
+  display: block;
+  clip-path: none;
+  background: none;
+  filter: blur(3px);
+}
+
+.env-invite-screen.env-invite-screen--plain .env-invite-flap-shadow::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  height: calc(100% + 5px);
+  clip-path: polygon(1% 0, 99% 0, 50% 100%);
+  background: rgb(var(--env-ink-shadow) / 40%);
+}
+
+/* Once the flap is open its shadow goes with it */
+.env-invite-screen.env-invite-screen--plain[data-phase="flap-open"] .env-invite-flap-shadow,
+.env-invite-screen.env-invite-screen--plain[data-phase="rising"] .env-invite-flap-shadow,
+.env-invite-screen.env-invite-screen--plain[data-phase="photos"] .env-invite-flap-shadow,
+.env-invite-screen.env-invite-screen--plain[data-phase="revealed"] .env-invite-flap-shadow,
+.env-invite-screen.env-invite-screen--plain[data-phase="cta"] .env-invite-flap-shadow {
+  display: none;
+}
+
+/* Inside of the envelope: darkest, deeper shadow toward the bottom of the pocket */
+.env-invite-screen.env-invite-screen--plain .env-invite-back {
+  background:
+    var(--env-tex-paper),
+    linear-gradient(180deg, rgb(255 236 222 / 10%) 0%, transparent 30%, rgb(var(--env-ink-shadow) / 28%) 100%),
+    var(--color-envelope-base);
+  background-size: var(--env-tex-size), 100% 100%;
+  background-blend-mode: var(--env-tex-blend);
+  border-color: color-mix(in srgb, var(--color-envelope-base) 80%, black);
+  box-shadow:
+    inset 0 1px 0 rgb(255 236 222 / 20%),
+    inset 0 -6px 12px rgb(var(--env-ink-shadow) / 25%);
+}
+
+.env-invite-screen.env-invite-screen--plain .env-invite-back::before {
+  display: none;
+}
+
+/* Open pocket: the three front panels cast a soft shadow onto the card inside */
+.env-invite-screen.env-invite-screen--plain .env-invite-pocket {
+  filter: drop-shadow(0 -2px 3px rgb(var(--env-ink-shadow) / 30%));
+}
+
+.env-invite-screen.env-invite-screen--plain .env-invite-pocket-left {
+  background:
+    var(--env-tex-paper),
+    linear-gradient(100deg, rgb(255 236 222 / 16%) 0%, transparent 50%, rgb(var(--env-ink-shadow) / 16%) 100%),
+    var(--color-envelope-fold);
+  background-size: var(--env-tex-size), 100% 100%;
+  background-blend-mode: var(--env-tex-blend);
+  box-shadow: none;
+}
+
+.env-invite-screen.env-invite-screen--plain .env-invite-pocket-right {
+  background:
+    var(--env-tex-paper),
+    linear-gradient(260deg, rgb(255 236 222 / 8%) 0%, transparent 50%, rgb(var(--env-ink-shadow) / 20%) 100%),
+    var(--color-envelope-fold);
+  background-size: var(--env-tex-size), 100% 100%;
+  background-blend-mode: var(--env-tex-blend);
+  box-shadow: none;
+}
+
+.env-invite-screen.env-invite-screen--plain .env-invite-pocket-front {
+  background:
+    var(--env-tex-paper),
+    linear-gradient(180deg, rgb(255 238 226 / 22%) 0%, transparent 30%, rgb(var(--env-ink-shadow) / 18%) 100%),
+    var(--color-envelope-shadow);
+  background-size: var(--env-tex-size), 100% 100%;
+  background-blend-mode: var(--env-tex-blend);
+  box-shadow: none;
+}
+
+/* Where the bottom panel overlaps the side panels: a fine shadowed seam */
+.env-invite-screen.env-invite-screen--plain .env-invite-pocket-left::after,
+.env-invite-screen.env-invite-screen--plain .env-invite-pocket-right::after {
+  display: block;
+  opacity: 0.55;
+}
+
+
+/* The wax seal stays on the outside of the envelope in every phase: above the
+   front pocket (z 40) and the card inside the body, never tucked behind them */
+.env-invite-screen .env-invite-seal-wrap {
+  z-index: 45;
+}

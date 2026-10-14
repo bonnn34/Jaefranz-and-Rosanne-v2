@@ -7,8 +7,7 @@ import { useReducedMotion } from 'motion/react';
 import { useSiteConfig } from '@/hooks/use-site-config';
 import { siteConfig as defaultSiteConfig } from '@/content/site';
 import { PhotoMarquee } from '@/components/loader/invite-photo-backdrop';
-import { PlainAtmosphere } from '@/components/loader/PlainAtmosphere';
-import { PlainBubbles } from '@/components/loader/PlainBubbles';
+import { SunriseSky } from '@/components/loader/SunriseSky';
 import { TintedDeco } from '@/components/tinted-deco';
 import './loading-screen.css';
 
@@ -60,17 +59,16 @@ function splitHeadline(headline: string) {
     });
 }
 
-// Motif colors cycled through the floating motes and petals (plain mode)
+// Sunrise colors cycled through the drifting petals (plain mode; sunrise-sky.css)
 const MOTE_COLORS = [
-  'var(--color-motif-blush)',
-  'var(--color-motif-yellow)',
-  'var(--color-motif-medium)',
-  'var(--color-motif-accent)',
-  'var(--color-motif-teal-light)',
+  'var(--sr-rose)',
+  'var(--sr-amber)',
+  'var(--sr-butter)',
+  'var(--sr-brick)',
 ]
 
-// Colorful motes and petals drifting up behind the invitation card (plain mode)
-const PLAIN_MOTES = Array.from({ length: 24 }, (_, i) => ({
+// A few petals drifting up behind the invitation card (plain mode)
+const PLAIN_MOTES = Array.from({ length: 8 }, (_, i) => ({
   x: (i * 37 + 11) % 100,
   size: 4 + ((i * 7) % 6),
   dur: 14 + ((i * 5) % 10),
@@ -78,7 +76,7 @@ const PLAIN_MOTES = Array.from({ length: 24 }, (_, i) => ({
   drift: ((i % 2 === 0 ? 1 : -1) * (12 + ((i * 11) % 24))),
   spin: (i % 2 === 0 ? 1 : -1) * (180 + ((i * 47) % 360)),
   color: MOTE_COLORS[i % MOTE_COLORS.length],
-  petal: i % 3 === 0,
+  petal: true,
 }))
 
 function startOfDay(date: Date) {
@@ -250,8 +248,7 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete, onFade
 
       {isPlain && (
         <>
-          <PlainAtmosphere baseColor={plainTheme.background} />
-          <PlainBubbles />
+          <SunriseSky />
           <div className="loading-screen__plain-corners" aria-hidden="true">
             {(
               [

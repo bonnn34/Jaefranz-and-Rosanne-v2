@@ -7,7 +7,7 @@ import { StorySection } from "@/components/StorySection"
 import { layeredSectionTitleSize, sectionType } from "@/lib/section-typography"
 import { useSiteConfig } from "@/hooks/use-site-config"
 import { siteConfig as defaultSiteConfig } from "@/content/site"
-import { PlainBubbles } from "@/components/loader/PlainBubbles"
+import { SunriseSky } from "@/components/loader/SunriseSky"
 import "@/components/loader/loading-screen.css"
 import { TintedDeco } from "@/components/tinted-deco"
 
@@ -25,11 +25,14 @@ const aboveTheBeyond = localFont({
 
 const revealEase = [0.22, 1, 0.36, 1] as const
 
-// Section background = the hero's circle pattern (PlainBubbles paints its own aqua base)
-const sectionBg = "var(--color-bg-pattern-base)"
+// Sunrise inks (components/loader/sunrise-sky.css → --sr-*)
+const INK = "var(--sr-maroon)"
+const INK_SOFT = "var(--sr-navy)"
+const INK_ACCENT = "var(--sr-brick)"
 
-// Soft white halo so text stays readable over the circles (globals.css → --color-on-pattern-glow)
-const onBgGlow = "0 1px 0 var(--color-on-pattern-glow), 0 2px 12px var(--color-on-pattern-glow)"
+// Soft champagne halo so text stays readable over the sunlight
+const onBgGlow =
+  "0 1px 0 color-mix(in srgb, var(--sr-champagne) 85%, transparent), 0 2px 14px color-mix(in srgb, var(--sr-champagne) 85%, transparent)"
 
 function formatStoryParagraph(
   paragraph: string,
@@ -47,14 +50,18 @@ function OrnamentalDivider() {
       <span
         className="h-px w-6 sm:w-10"
         style={{
-          background: "color-mix(in srgb, var(--color-welcome-navy) 35%, transparent)",
+          background: "color-mix(in srgb, var(--sr-brick) 45%, transparent)",
         }}
       />
-      <span className="h-0.5 w-0.5 rounded-full bg-motif-deep sm:h-1 sm:w-1" aria-hidden />
+      <span
+        className="h-1 w-1 rotate-45 sm:h-1.5 sm:w-1.5"
+        style={{ background: INK_ACCENT }}
+        aria-hidden
+      />
       <span
         className="h-px w-6 sm:w-10"
         style={{
-          background: "color-mix(in srgb, var(--color-welcome-navy) 35%, transparent)",
+          background: "color-mix(in srgb, var(--sr-brick) 45%, transparent)",
         }}
       />
     </div>
@@ -70,7 +77,7 @@ function LoveStoryTitle({
 }) {
   return (
     <h1
-      className="welcome-title-lockup relative mx-auto mt-6 w-full max-w-full text-center sm:mt-8 md:mt-10"
+      className="welcome-title-lockup relative mx-auto mt-4 w-full max-w-full text-center sm:mt-5"
       style={
         {
           "--title-size": layeredSectionTitleSize.main,
@@ -82,7 +89,7 @@ function LoveStoryTitle({
         className={`${theSeasons.className} block pb-1 uppercase leading-[0.78] tracking-[0.08em] min-[400px]:tracking-[0.11em] sm:tracking-[0.13em] md:tracking-[0.14em]`}
         style={{
           fontSize: "var(--title-size)",
-          color: "var(--color-welcome-navy)",
+          color: INK,
           textShadow: onBgGlow,
         }}
       >
@@ -93,7 +100,7 @@ function LoveStoryTitle({
         className={`${aboveTheBeyond.className} mx-auto mt-2 block w-fit max-w-full px-1 leading-[0.88] sm:mt-2.5 sm:leading-[0.9] md:mt-3`}
         style={{
           fontSize: "var(--script-size)",
-          color: "var(--color-romantic-coral)",
+          color: INK_ACCENT,
           textShadow: onBgGlow,
         }}
       >
@@ -179,24 +186,20 @@ export function LoveStory() {
     () => loveStory.chapters ?? defaultSiteConfig.loveStory.chapters,
     [loveStory.chapters],
   )
-  const eucalyptusDecos =
-    loveStory.eucalyptusDecos ?? defaultSiteConfig.loveStory.eucalyptusDecos
 
   return (
     <div
       id="love-story"
-      className={`love-story-root ${theSeasons.variable} ${aboveTheBeyond.variable} relative min-h-screen w-full overflow-x-hidden`}
-      style={{ background: sectionBg }}
+      className={`love-story-root sunrise-wash ${theSeasons.variable} ${aboveTheBeyond.variable} relative min-h-screen w-full overflow-x-hidden`}
     >
-      {/* Same circle pattern as the other sections */}
-      <PlainBubbles />
+      {/* Same watercolor sunrise as the loader + hero, as a band at the top */}
+      <SunriseSky band />
       <SectionCornerDecos cornerDecos={cornerDecos} />
 
-      <header
-        className="relative z-20 px-4 pb-6 pt-8 text-center sm:px-6 sm:pb-4 sm:pt-10 md:px-8 md:pt-12"
-      >
+      {/* Clears the top corner decorations so the title sits centered below them */}
+      <header className="love-story-header relative z-20 flex flex-col items-center text-center">
         <motion.div
-          className="relative mx-auto max-w-5xl @container/love-story"
+          className="relative mx-auto w-full max-w-5xl @container/love-story"
           initial={reduceMotion ? false : { opacity: 0, y: 22 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
@@ -219,7 +222,6 @@ export function LoveStory() {
           chapterIndex={index}
           isFirst={index === 0}
           isLast={index === chapters.length - 1}
-          eucalyptusDecos={isPlain ? eucalyptusDecos : undefined}
           chapterLabelText={loveStory.chapterLabel}
         />
       ))}
@@ -238,20 +240,17 @@ export function LoveStory() {
           <blockquote className="mt-5 sm:mt-6">
             <p
               className={`font-goudy-italic ${sectionType.textRelaxed} italic leading-relaxed`}
-              style={{ color: "var(--color-welcome-navy)", textShadow: onBgGlow }}
+              style={{ color: INK_SOFT, textShadow: onBgGlow }}
             >
               &ldquo;{loveStory.closingQuote}&rdquo;
             </p>
             <footer
               className={`font-goudy-italic mt-2 sm:mt-3 ${sectionType.label} not-italic tracking-wide`}
-              style={{ color: "var(--color-romantic-coral)", textShadow: onBgGlow }}
+              style={{ color: INK_ACCENT, textShadow: onBgGlow }}
             >
               — {loveStory.closingCitation}
             </footer>
           </blockquote>
-          {isPlain && eucalyptusDecos.sectionBottom ? (
-            <TintedDeco src={eucalyptusDecos.sectionBottom} className="love-story-footer-euc mx-auto mt-8 sm:mt-10" />
-          ) : null}
         </motion.div>
       </footer>
     </div>

@@ -2,7 +2,8 @@
 
 import React from "react"
 import localFont from "next/font/local"
-import { motion, useReducedMotion } from "motion/react"
+import { Playfair_Display } from "next/font/google"
+import { motion, useReducedMotion, type Variants } from "motion/react"
 import { sectionType, storyChapterTitleSize } from "@/lib/section-typography"
 import Image from "next/image"
 import { TornPaperEdge } from "./TornPaperEdge"
@@ -14,20 +15,29 @@ const theSeasons = localFont({
   variable: "--font-the-seasons",
 })
 
+// Numbers (ghost numeral, "Chapter 01") are never set in The Seasons: they use
+// Playfair Display italic, whose old-style figures read as a separate voice
+const numeralFont = Playfair_Display({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  style: ["italic"],
+  display: "swap",
+})
+
+// Faint corner sprigs inside each card, on the side opposite the ghost numeral
+const CARD_CORNER_DECO = {
+  left: "/deco/deco-new/left-top-corner.png",
+  right: "/deco/deco-new/right-top-corner.png",
+} as const
+
 const lightBg = "var(--color-welcome-bg)"
 const darkBg = "var(--color-welcome-green)"
 const revealEase = [0.22, 1, 0.36, 1] as const
 
-// Plain cards: flat palette colors — teal text on light cards, light text on teal cards
-const TEAL = "var(--color-welcome-navy)"
-const ON_TEAL = "var(--color-motif-soft)"
-
-export type LoveStoryEucalyptusDecos = {
-  topLeft: string
-  bottomRight: string
-  timelineTop: string
-  sectionBottom: string
-}
+// Plain cards: every card is the light motif paper; inks from the sunrise
+// palette (components/loader/sunrise-sky.css → --sr-*)
+const CARD_TITLE = "var(--sr-maroon)"
+const CARD_BODY = "color-mix(in srgb, var(--sr-navy) 88%, var(--sr-maroon))"
 
 interface StorySectionProps {
   imageSrc?: string
@@ -39,35 +49,85 @@ interface StorySectionProps {
   isLast?: boolean
   plain?: boolean
   chapterIndex?: number
-  eucalyptusDecos?: LoveStoryEucalyptusDecos
   // Word before the number on plain cards, e.g. "Chapter" → "Chapter 01"
   chapterLabelText?: string
 }
 
-function PlainEucalyptusDecos({ decos }: { decos: LoveStoryEucalyptusDecos }) {
-  return (
-    <>
-      <TintedDeco src={decos.timelineTop} className="story-plain-card__euc story-plain-card__euc--center" />
-      <TintedDeco src={decos.topLeft} className="story-plain-card__euc story-plain-card__euc--left" />
-      <TintedDeco src={decos.bottomRight} className="story-plain-card__euc story-plain-card__euc--right" />
-    </>
-  )
+// Plain card choreography: the card rises in, then its parts follow in order
+// (label → title → divider → text → closing flourish); the ghost number drifts
+// in from its side and the timeline dot pops.
+function plainCardVariants(reduceMotion: boolean | null, fromLeft: boolean, delay: number) {
+  const card: Variants = reduceMotion
+    ? { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 0.4, delay } } }
+    : {
+        hidden: { opacity: 0, y: 46, scale: 0.96, filter: "blur(6px)" },
+        visible: {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          filter: "blur(0px)",
+          transition: {
+            duration: 0.95,
+            delay,
+            ease: revealEase,
+            when: "beforeChildren",
+            staggerChildren: 0.12,
+          },
+        },
+      }
+  const item: Variants = reduceMotion
+    ? { hidden: { opacity: 1 }, visible: { opacity: 1 } }
+    : {
+        hidden: { opacity: 0, y: 14 },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: revealEase } },
+      }
+  const rule: Variants = reduceMotion
+    ? { hidden: { opacity: 1 }, visible: { opacity: 1 } }
+    : {
+        hidden: { opacity: 0, scaleX: 0 },
+        visible: { opacity: 1, scaleX: 1, transition: { duration: 0.8, ease: revealEase } },
+      }
+  const ghost: Variants = reduceMotion
+    ? { hidden: { opacity: 1 }, visible: { opacity: 1 } }
+    : {
+        hidden: { opacity: 0, x: fromLeft ? 48 : -48, scale: 1.12 },
+        visible: { opacity: 1, x: 0, scale: 1, transition: { duration: 1.4, ease: revealEase } },
+      }
+  const dot: Variants = reduceMotion
+    ? { hidden: { opacity: 1 }, visible: { opacity: 1 } }
+    : {
+        hidden: { opacity: 0, scale: 0 },
+        visible: {
+          opacity: 1,
+          scale: 1,
+          transition: { type: "spring", stiffness: 420, damping: 16 },
+        },
+      }
+  const corner: Variants = reduceMotion
+    ? { hidden: { opacity: 1 }, visible: { opacity: 1 } }
+    : {
+        hidden: { opacity: 0, scale: 0.9, rotate: fromLeft ? 4 : -4 },
+        visible: {
+          opacity: 1,
+          scale: 1,
+          rotate: 0,
+          transition: { duration: 1.6, ease: revealEase },
+        },
+      }
+  return { card, item, rule, ghost, dot, corner }
 }
 
-function PlainChapterDivider({ dark }: { dark: boolean }) {
-  const line = dark
-    ? "color-mix(in srgb, var(--color-motif-soft) 45%, transparent)"
-    : "color-mix(in srgb, var(--color-welcome-navy) 35%, transparent)"
+function PlainChapterDivider({ variants, alignEnd }: { variants: Variants; alignEnd: boolean }) {
+  const line = "color-mix(in srgb, var(--sr-brick) 45%, transparent)"
   return (
-    <div className="mb-4 flex items-center justify-center gap-1.5 sm:mb-5">
+    <motion.div
+      variants={variants}
+      className={`mb-4 flex origin-center items-center justify-center gap-1.5 sm:mb-5 ${alignEnd ? "md:origin-right md:justify-end" : "md:origin-left md:justify-start"}`}
+    >
       <span className="h-px w-8 sm:w-12" style={{ background: line }} />
-      <span
-        className="h-1 w-1 rotate-45"
-        style={{ background: dark ? "var(--color-motif-blush)" : "var(--color-romantic-coral)" }}
-        aria-hidden
-      />
+      <span className="h-1.5 w-1.5 rotate-45" style={{ background: "var(--sr-amber)" }} aria-hidden />
       <span className="h-px w-8 sm:w-12" style={{ background: line }} />
-    </div>
+    </motion.div>
   )
 }
 
@@ -81,7 +141,6 @@ export const StorySection: React.FC<StorySectionProps> = ({
   isLast = false,
   plain = false,
   chapterIndex = 0,
-  eucalyptusDecos,
   chapterLabelText = "Chapter",
 }) => {
   const isDark = theme === "dark"
@@ -111,16 +170,9 @@ export const StorySection: React.FC<StorySectionProps> = ({
   const chapterLabel = String(chapterIndex + 1).padStart(2, "0")
   const stagger = Math.min(chapterIndex * 0.07, 0.45)
 
-  const plainInitial = reduceMotion
-    ? { opacity: 1, x: 0, y: 0, scale: 1 }
-    : {
-        opacity: 0,
-        x: slideFromLeft ? -36 : 36,
-        y: 20,
-        scale: 0.97,
-      }
-
-  const plainAnimate = { opacity: 1, x: 0, y: 0, scale: 1 }
+  // Ghost numeral alternates sides chapter by chapter: right, left, right, ...
+  const ghostOnRight = chapterIndex % 2 === 0
+  const plainMotion = plainCardVariants(reduceMotion, !ghostOnRight, stagger)
 
   const imageInitial = reduceMotion
     ? { opacity: 1, scale: 1, y: 0 }
@@ -139,16 +191,6 @@ export const StorySection: React.FC<StorySectionProps> = ({
       className={`${theSeasons.variable} relative z-[2] ${sectionSurfaceClass}`}
       style={plain ? undefined : { background: isDark ? darkBg : lightBg }}
     >
-      {plain && (
-        <div className="story-plain-atmosphere" aria-hidden="true">
-          <div className="story-plain-atmosphere__blobs">
-            <span className="story-plain-atmosphere__blob story-plain-atmosphere__blob--a" />
-            <span className="story-plain-atmosphere__blob story-plain-atmosphere__blob--b" />
-            <span className="story-plain-atmosphere__blob story-plain-atmosphere__blob--c" />
-          </div>
-        </div>
-      )}
-
       {!isDark && !plain && (
         <>
           {!isFirst && (
@@ -203,46 +245,59 @@ export const StorySection: React.FC<StorySectionProps> = ({
 
           {plain ? (
             <motion.article
-              className={`story-plain-card w-full max-w-xl px-5 pb-7 pt-10 sm:rounded-2xl sm:px-8 sm:pb-9 sm:pt-12 md:px-9 md:pb-10 md:pt-14 ${isDark ? "story-plain-card--dark" : ""}`}
-              initial={plainInitial}
-              whileInView={plainAnimate}
-              viewport={{ once: true, margin: "-8%" }}
-              transition={{ duration: 0.88, delay: stagger, ease: revealEase }}
+              className={`story-plain-card story-card w-full max-w-xl px-6 pb-8 pt-11 sm:px-9 sm:pb-10 sm:pt-12 md:px-10 md:pb-11 md:pt-14 ${ghostOnRight ? "story-card--ghost-right" : "story-card--ghost-left"}`}
+              variants={plainMotion.card}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-10%" }}
             >
-              {eucalyptusDecos ? (
-                <PlainEucalyptusDecos decos={eucalyptusDecos} />
-              ) : null}
-              <span className="story-plain-card__frost" aria-hidden />
-              <span className="story-plain-card__dot" aria-hidden />
-              <div className="wedding-frame-inner hidden min-[400px]:block" aria-hidden />
-              <div className="relative z-[2]">
-              <p
-                className={`${theSeasons.className} story-plain-chapter-label mb-2 text-[0.58rem] font-medium uppercase sm:text-[0.62rem]`}
-              >
-                {chapterLabelText} {chapterLabel}
-              </p>
-              {title ? (
-                <h2
-                  className={`${theSeasons.className} mb-3 uppercase leading-tight tracking-[0.08em] sm:mb-4 sm:tracking-[0.1em] md:tracking-[0.11em]`}
-                  style={{
-                    fontSize: storyChapterTitleSize,
-                    color: isDark ? ON_TEAL : TEAL,
-                  }}
+              {/* Large faint chapter number behind the content */}
+              <span className="story-card__ghost-clip" aria-hidden>
+                <motion.span
+                  className={`${numeralFont.className} story-card__ghost`}
+                  variants={plainMotion.ghost}
                 >
-                  {title}
-                </h2>
-              ) : null}
-              <PlainChapterDivider dark={isDark} />
-              <div
-                style={{ color: isDark ? ON_TEAL : TEAL }}
-                className={`font-goudy-italic space-y-3 sm:space-y-4 md:space-y-5 lg:leading-[1.7] ${sectionType.textRelaxed}`}
-              >
-                {text}
-              </div>
-              <div
-                className={`story-plain-chapter-line mt-6 sm:mt-7 ${isDark ? "story-plain-chapter-line--dark" : ""}`}
-                aria-hidden
-              />
+                  {chapterLabel}
+                </motion.span>
+                <motion.span
+                  className={`story-card__corner ${ghostOnRight ? "story-card__corner--left" : "story-card__corner--right"}`}
+                  variants={plainMotion.corner}
+                >
+                  <TintedDeco src={ghostOnRight ? CARD_CORNER_DECO.left : CARD_CORNER_DECO.right} />
+                </motion.span>
+              </span>
+              <motion.span className="story-plain-card__dot" variants={plainMotion.dot} aria-hidden />
+              <div className="wedding-frame-inner hidden min-[400px]:block" aria-hidden />
+              <div className={`relative z-[2] flex flex-col items-center text-center ${slideFromLeft ? "md:items-start md:text-left" : "md:items-end md:text-right"}`}>
+                <motion.p
+                  variants={plainMotion.item}
+                  className={`${theSeasons.className} story-plain-chapter-label story-card__label mb-3 text-[0.6rem] font-medium uppercase sm:text-[0.66rem]`}
+                >
+                  {chapterLabelText}{" "}
+                  <span className={`${numeralFont.className} story-card__label-num`}>{chapterLabel}</span>
+                </motion.p>
+                {title ? (
+                  <motion.h2
+                    variants={plainMotion.item}
+                    className={`${theSeasons.className} mb-3 uppercase leading-tight tracking-[0.08em] sm:mb-4 sm:tracking-[0.1em] md:tracking-[0.11em]`}
+                    style={{ fontSize: storyChapterTitleSize, color: CARD_TITLE }}
+                  >
+                    {title}
+                  </motion.h2>
+                ) : null}
+                <PlainChapterDivider variants={plainMotion.rule} alignEnd={!slideFromLeft} />
+                <motion.div
+                  variants={plainMotion.item}
+                  style={{ color: CARD_BODY }}
+                  className={`story-card__text font-goudy-italic space-y-3 sm:space-y-4 md:space-y-5 lg:leading-[1.75] ${sectionType.textRelaxed}`}
+                >
+                  {text}
+                </motion.div>
+                <motion.div
+                  variants={plainMotion.rule}
+                  className="story-plain-chapter-line story-card__end mt-7 sm:mt-8"
+                  aria-hidden
+                />
               </div>
               {!isLast && (
                 <div className="story-plain-chapter-connector" aria-hidden>

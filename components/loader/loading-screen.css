@@ -3375,3 +3375,412 @@
 .loading-screen--plain .loading-screen__plain-ornament {
   margin-top: -0.75rem;
 }
+
+
+/* ==========================================================================
+   Plain mode — sunrise pass (kept last so it wins)
+   Backdrop: components/loader/SunriseSky (--sr-* colors in sunrise-sky.css).
+   Card: one solid champagne surface, no gradients; text in darker solid inks.
+   ========================================================================== */
+
+.loading-screen--plain {
+  --sr-card: color-mix(in srgb, var(--sr-champagne) 55%, white);
+  --sr-card-line: color-mix(in srgb, var(--sr-brick) 45%, var(--sr-champagne));
+  --ls-text-dark: var(--sr-navy);
+  --ls-text-accent-dark: var(--sr-maroon);
+  --ls-text-highlight: var(--sr-brick);
+}
+
+/* The sunlight is animated by SunriseSky itself; no extra bloom on top */
+.loading-screen--plain .ls-plain-glow {
+  background: none;
+}
+
+/* Petals: flat color, no glow halo */
+.loading-screen--plain .ls-plain-mote {
+  background: var(--c);
+  box-shadow: none;
+}
+
+/* Card: solid surface, solid hairline border, no spinning spectrum */
+.loading-screen--plain .loading-screen__save-date {
+  border: 1px solid var(--sr-card-line);
+  background: var(--sr-card);
+  box-shadow: 0 24px 50px -28px color-mix(in srgb, var(--sr-maroon) 45%, transparent);
+  animation: ls-plain-card-in 1.3s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+
+.loading-screen--plain .loading-screen__save-date::before {
+  border-color: color-mix(in srgb, var(--sr-amber) 60%, transparent);
+}
+
+.loading-screen--plain .loading-screen__save-date::after {
+  border-color: color-mix(in srgb, var(--sr-rose) 40%, transparent);
+}
+
+/* Text: solid inks only */
+.loading-screen--plain .loading-screen__std-headline,
+.loading-screen--plain .ls-headline__letter,
+.loading-screen--plain .ls-names__nick {
+  background: none;
+  color: var(--ls-text-accent-dark);
+  -webkit-text-fill-color: var(--ls-text-accent-dark);
+  text-shadow: none;
+}
+
+.loading-screen--plain .ls-silk-date__day,
+.loading-screen--plain .ls-silk-date__digit-inner {
+  background: none;
+  color: var(--ls-text-highlight);
+  -webkit-text-fill-color: var(--ls-text-highlight);
+  animation: none;
+  filter: none;
+}
+
+.loading-screen--plain .loading-screen__std-names {
+  filter: none;
+}
+
+/* Hairlines + progress: solid colors */
+.loading-screen--plain .ls-silk-date__weekday::before,
+.loading-screen--plain .ls-silk-date__weekday::after,
+.loading-screen--plain .loading-screen__std-rule {
+  background: var(--sr-card-line);
+}
+
+.loading-screen--plain .ls-silk-date__side {
+  border-color: var(--sr-card-line);
+}
+
+.loading-screen--plain .loading-screen__std-track {
+  background: color-mix(in srgb, var(--sr-rose) 35%, transparent);
+}
+
+.loading-screen--plain .loading-screen__std-bar {
+  background: var(--sr-brick);
+}
+
+.loading-screen--plain .loading-screen__std-bar::after {
+  display: none;
+}
+
+.loading-screen--plain .ls-plain-progress-glow {
+  background: var(--sr-maroon);
+  box-shadow: 0 0 0 3px var(--sr-card);
+}
+
+
+/* ---- Main site #home hero (components/sections/hero.tsx) — sunrise pass ----
+   Backdrop: components/loader/SunriseSky, same as the loader + envelope.
+   Solid darker inks with a champagne halo so the text reads over the sunlight. */
+.home-hero--plain {
+  --hero-sr-halo: color-mix(in srgb, var(--sr-champagne) 85%, transparent);
+}
+
+.home-hero--plain .home-hero-title-main,
+.home-hero--plain .home-hero-date {
+  color: var(--sr-maroon);
+  text-shadow: 0 1px 0 var(--hero-sr-halo), 0 2px 18px var(--hero-sr-halo);
+}
+
+.home-hero--plain .home-hero-title-script {
+  color: var(--sr-brick);
+  text-shadow: 0 1px 0 var(--hero-sr-halo), 0 2px 18px var(--hero-sr-halo);
+}
+
+.home-hero--plain .home-hero-eyebrow,
+.home-hero--plain .home-hero-meta {
+  color: var(--sr-navy);
+  text-shadow: 0 1px 12px var(--hero-sr-halo);
+}
+
+/* Countdown band fades up from a solid maroon base instead of plum */
+.home-hero--plain .home-hero-countdown-bar {
+  background: linear-gradient(
+    to top,
+    var(--sr-maroon) 0%,
+    color-mix(in srgb, var(--sr-maroon) 85%, transparent) 30%,
+    color-mix(in srgb, var(--sr-maroon) 40%, transparent) 65%,
+    transparent 100%
+  );
+}
+
+.home-hero--plain .home-hero-countdown-value,
+.home-hero--plain .home-hero-countdown-heading {
+  color: var(--sr-champagne);
+  text-shadow: 0 1px 10px color-mix(in srgb, var(--sr-maroon) 60%, transparent);
+}
+
+.home-hero--plain .home-hero-countdown-label {
+  color: var(--sr-butter);
+}
+
+/* The sun is already up by the time the site opens: no dawn replay */
+.home-hero--plain .sunrise-sky__dawn {
+  display: none;
+}
+
+
+/* ==========================================================================
+   Love story (components/sections/love-story.tsx + StorySection) — sunrise pass
+   Background: SunriseSky band + .sunrise-wash (sunrise-sky.css). Chapters sit
+   straight on the wash (no colored bands, no blur orbs); cards are solid.
+   ========================================================================== */
+
+/* Header clears the top corner decorations (≈0.92 tall per 1 wide) and keeps
+   side padding so the centered title never runs under them */
+.love-story-header {
+  --ls-corner-w: min(42vw, 165px);
+  padding: calc(var(--ls-corner-w) * 0.78) 1.25rem 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .love-story-header {
+    --ls-corner-w: 245px;
+    padding: calc(var(--ls-corner-w) * 0.62) 2rem 2rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  /* Wide screens: the corners sit far from the centered title */
+  .love-story-header {
+    padding-top: clamp(6rem, 9vw, 9rem);
+  }
+}
+
+/* Chapter tracks: transparent so the one sunrise wash runs the whole section */
+.love-story-root .love-story-plain-track--theme-light,
+.love-story-root .love-story-plain-track--theme-dark {
+  background: none;
+}
+
+/* Timeline thread in brick/amber */
+.love-story-root .love-story-plain-track::before {
+  --ls-thread-top: color-mix(in srgb, var(--sr-brick) 40%, transparent);
+  --ls-thread-bottom: color-mix(in srgb, var(--sr-brick) 40%, transparent);
+  background: linear-gradient(
+    180deg,
+    var(--ls-thread-top) 0%,
+    color-mix(in srgb, var(--sr-amber) 55%, transparent) 50%,
+    var(--ls-thread-bottom) 100%
+  );
+}
+
+.love-story-root .love-story-plain-track--first::before {
+  --ls-thread-top: transparent;
+}
+
+.love-story-root .love-story-plain-track--last::before {
+  --ls-thread-bottom: transparent;
+}
+
+/* Cards: solid surfaces, no frosted glass or gradient sheen */
+.love-story-root .story-plain-card {
+  border: 1px solid color-mix(in srgb, var(--sr-brick) 35%, var(--sr-champagne));
+  background: color-mix(in srgb, var(--sr-champagne) 55%, white);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: 0 18px 40px -22px color-mix(in srgb, var(--sr-maroon) 45%, transparent);
+}
+
+.love-story-root .story-plain-card--dark {
+  border-color: color-mix(in srgb, var(--sr-maroon) 80%, black);
+  background: var(--sr-maroon);
+  box-shadow: 0 18px 40px -20px color-mix(in srgb, var(--sr-maroon) 60%, transparent);
+}
+
+.love-story-root .story-plain-card__frost {
+  display: none;
+}
+
+.love-story-root .story-plain-card .wedding-frame-inner {
+  border-color: color-mix(in srgb, var(--sr-amber) 55%, transparent);
+}
+
+.love-story-root .story-plain-card--dark .wedding-frame-inner {
+  border-color: color-mix(in srgb, var(--sr-butter) 35%, transparent);
+}
+
+.love-story-root .story-plain-chapter-label {
+  color: var(--sr-brick);
+}
+
+.love-story-root .story-plain-card--dark .story-plain-chapter-label {
+  color: var(--sr-butter);
+}
+
+.love-story-root .story-plain-chapter-line {
+  background: color-mix(in srgb, var(--sr-brick) 35%, transparent);
+}
+
+.love-story-root .story-plain-chapter-line--dark {
+  background: color-mix(in srgb, var(--sr-champagne) 35%, transparent);
+}
+
+/* Timeline dot on each card: amber, ringed in the wash color */
+.love-story-root .story-plain-card__dot,
+.love-story-root .love-story-plain-track--theme-dark .story-plain-card__dot {
+  background: var(--sr-amber);
+  box-shadow: 0 0 0 4px #FCE9D7;
+}
+
+.love-story-root .story-plain-chapter-connector__stem {
+  background: color-mix(in srgb, var(--sr-brick) 40%, transparent);
+}
+
+
+/* ---- Love story cards: light motif paper, ghost number, no decorations ---- */
+.love-story-root .story-card,
+.love-story-root .story-card.story-plain-card--dark {
+  overflow: visible;
+  border: 1px solid color-mix(in srgb, var(--color-motif-yellow) 70%, white);
+  background: color-mix(in srgb, var(--color-motif-cream) 70%, white);
+  box-shadow:
+    0 1px 0 rgb(255 255 255 / 80%) inset,
+    0 22px 44px -26px color-mix(in srgb, var(--sr-maroon) 40%, transparent),
+    0 6px 14px -8px color-mix(in srgb, var(--sr-brick) 18%, transparent);
+  /* hover lift uses `translate` so it doesn't fight the reveal's inline transform */
+  transition: translate 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s ease;
+}
+
+@media (hover: hover) {
+  .love-story-root .story-card:hover {
+    translate: 0 -4px;
+    box-shadow:
+      0 1px 0 rgb(255 255 255 / 80%) inset,
+      0 30px 54px -26px color-mix(in srgb, var(--sr-maroon) 45%, transparent),
+      0 8px 18px -8px color-mix(in srgb, var(--sr-brick) 22%, transparent);
+  }
+}
+
+.love-story-root .story-card .wedding-frame-inner {
+  border-color: color-mix(in srgb, var(--sr-amber) 45%, transparent);
+}
+
+/* Ghost number: big, faint, tucked into the corner opposite the text */
+.story-card__ghost-clip {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.story-card__ghost {
+  position: absolute;
+  top: -0.08em;
+  display: block;
+  font-size: clamp(6.5rem, 32vw, 11.5rem);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  font-variant-numeric: oldstyle-nums;
+  color: color-mix(in srgb, var(--sr-brick) 11%, transparent);
+  user-select: none;
+}
+
+.story-card--ghost-right .story-card__ghost {
+  right: 0.12em;
+}
+
+.story-card--ghost-left .story-card__ghost {
+  left: 0.12em;
+}
+
+/* Label: small caps with the number in brick */
+.love-story-root .story-card__label {
+  color: color-mix(in srgb, var(--sr-navy) 70%, transparent);
+  letter-spacing: 0.32em;
+}
+
+.story-card__label-num {
+  color: var(--sr-brick);
+  font-size: 1.5em;
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: none;
+}
+
+/* First letter of the story set a little larger */
+.story-card__text > p:first-child::first-letter {
+  font-size: 1.45em;
+  line-height: 1;
+  color: var(--sr-brick);
+}
+
+.love-story-root .story-card .story-card__end {
+  width: 4.5rem;
+  height: 1px;
+  background: color-mix(in srgb, var(--sr-brick) 45%, transparent);
+}
+
+/* Timeline dot: amber with a soft pulse once it lands */
+.love-story-root .story-card .story-plain-card__dot {
+  height: 0.7rem;
+  width: 0.7rem;
+  top: -0.4rem;
+  margin-left: -0.35rem;
+  transform: none;
+  background: var(--sr-amber);
+  box-shadow: 0 0 0 4px #FCE9D7;
+}
+
+.love-story-root .story-card .story-plain-card__dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--sr-amber);
+  animation: story-dot-pulse 2.6s ease-out 1.2s infinite;
+}
+
+@keyframes story-dot-pulse {
+  0% { opacity: 0.55; transform: scale(1); }
+  100% { opacity: 0; transform: scale(2.8); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .love-story-root .story-card .story-plain-card__dot::after {
+    animation: none;
+    display: none;
+  }
+  .love-story-root .story-card:hover {
+    translate: none;
+  }
+}
+
+/* Faint corner sprig inside the card, opposite the ghost numeral — just a
+   whisper of life, kept well behind the text */
+.story-card__corner {
+  position: absolute;
+  top: 0;
+  display: block;
+  width: clamp(5.5rem, 30%, 9.5rem);
+  pointer-events: none;
+}
+
+.story-card__corner--left {
+  left: 0;
+  transform-origin: top left;
+}
+
+.story-card__corner--right {
+  right: 0;
+  transform-origin: top right;
+}
+
+.story-card__corner .tinted-deco {
+  opacity: 0.16;
+}
+
+/* "Note 01": the number is its own voice — Playfair italic, old-style figures */
+.love-story-root .story-card__label-num {
+  font-variant-numeric: oldstyle-nums proportional-nums;
+  font-size: 1.85em;
+  letter-spacing: 0.02em;
+  margin-left: 0.15em;
+  vertical-align: -0.08em;
+}

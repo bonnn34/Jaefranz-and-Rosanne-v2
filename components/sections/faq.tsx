@@ -7,7 +7,7 @@ import { Cinzel } from "next/font/google"
 import localFont from "next/font/local"
 import { useSiteConfig } from "@/hooks/use-site-config"
 import { layeredSectionTitleSize, sectionType } from "@/lib/section-typography"
-import { PlainBubbles } from "@/components/loader/PlainBubbles"
+import { SunriseSky } from "@/components/loader/SunriseSky"
 import { TintedDeco } from "@/components/tinted-deco"
 
 const cinzel = Cinzel({
@@ -37,13 +37,12 @@ const NAVY = TEAL
 const BODY = TEAL
 const ACCENT = TEAL
 
-// Section background = the hero's circle pattern (PlainBubbles paints its own aqua base)
-const sectionBg = "var(--color-bg-pattern-base)"
-
-// Text sitting directly on the circle pattern (colors: globals.css → --color-on-pattern*)
+// Text sitting directly on the sunrise background: maroon ink with a soft
+// champagne halo (components/loader/sunrise-sky.css → --sr-*)
 const onBg = {
-  color: "var(--color-on-pattern)",
-  textShadow: "0 1px 0 var(--color-on-pattern-glow), 0 2px 12px var(--color-on-pattern-glow)",
+  color: "var(--sr-maroon)",
+  textShadow:
+    "0 1px 0 color-mix(in srgb, var(--sr-champagne) 85%, transparent), 0 2px 14px color-mix(in srgb, var(--sr-champagne) 85%, transparent)",
 } as const
 
 const cardStyle = {
@@ -85,13 +84,13 @@ function DecoImg({ src, className }: { src: string; className: string }) {
   return <TintedDeco src={src} className={className} />
 }
 
-// Sits directly on the circle pattern, so drawn in ivory
+// Sits directly on the sunrise background, so drawn in light brick
 function DiamondDivider() {
   return (
     <div className="flex items-center justify-center gap-2" aria-hidden>
-      <span className="h-px w-10 sm:w-16" style={{ background: "var(--color-on-pattern-line)" }} />
-      <span className="h-1.5 w-1.5 rotate-45" style={{ background: "var(--color-on-pattern-line)" }} />
-      <span className="h-px w-10 sm:w-16" style={{ background: "var(--color-on-pattern-line)" }} />
+      <span className="h-px w-10 sm:w-16" style={{ background: "color-mix(in srgb, var(--sr-brick) 45%, transparent)" }} />
+      <span className="h-1.5 w-1.5 rotate-45" style={{ background: "color-mix(in srgb, var(--sr-brick) 45%, transparent)" }} />
+      <span className="h-px w-10 sm:w-16" style={{ background: "color-mix(in srgb, var(--sr-brick) 45%, transparent)" }} />
     </div>
   )
 }
@@ -208,11 +207,10 @@ export function FAQ() {
 
   return (
     <div
-      className={`${theSeasons.variable} ${aboveTheBeyond.variable} relative w-full overflow-hidden`}
-      style={{ background: sectionBg }}
+      className={`sunrise-wash ${theSeasons.variable} ${aboveTheBeyond.variable} relative w-full overflow-hidden`}
     >
-      {/* Same circle pattern as the hero */}
-      <PlainBubbles />
+      {/* Same watercolor sunrise as the loader + hero, as a band at the top */}
+      <SunriseSky band />
       <section
         id="faq"
         className="relative z-10 overflow-hidden pt-14 pb-12 sm:pt-16 sm:pb-14 md:pt-20 md:pb-16 lg:pt-24 lg:pb-20"
@@ -262,7 +260,7 @@ export function FAQ() {
           <div className="mt-4 flex items-center justify-center sm:mt-5">
             <span
               className="h-px w-16 sm:w-24 md:w-32"
-              style={{ background: "var(--color-on-pattern-line)" }}
+              style={{ background: "color-mix(in srgb, var(--sr-brick) 45%, transparent)" }}
             />
           </div>
         </motion.div>

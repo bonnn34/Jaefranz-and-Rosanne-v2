@@ -18,7 +18,7 @@ import {
   ChevronRight,
 } from "lucide-react"
 import { useSiteConfig } from "@/hooks/use-site-config"
-import { PlainBubbles } from "@/components/loader/PlainBubbles"
+import { SunriseSky } from "@/components/loader/SunriseSky"
 import { sectionType } from "@/lib/section-typography"
 import { Cinzel } from "next/font/google"
 import { TintedDeco } from "@/components/tinted-deco"
@@ -40,41 +40,41 @@ const aboveTheBeyond = localFont({
   variable: "--font-above-beyond",
 })
 
-// Palette lives in globals.css → motif / welcome tokens.
-// Cards are plain light with teal text; buttons are coral (var(--color-romantic-coral)).
-const TEAL = "var(--color-welcome-navy)"
-const BUTTON = "var(--color-romantic-coral)"
-const BUTTON_HOVER = "color-mix(in srgb, var(--color-romantic-coral) 85%, black)"
-const IVORY = "var(--color-motif-soft)"
-const PAPER = "var(--color-motif-soft)"
-const HAIRLINE = "color-mix(in srgb, var(--color-welcome-navy) 22%, transparent)"
+// Light sunrise footer (components/loader/sunrise-sky.css → --sr-*): light
+// motif-paper cards with maroon / brick / navy inks and maroon buttons.
+const MAROON = "var(--sr-maroon)"
+const BUTTON = MAROON
+const BUTTON_HOVER = "color-mix(in srgb, var(--sr-maroon) 82%, black)"
+const IVORY = "color-mix(in srgb, var(--sr-champagne) 55%, white)"
+const PAPER = "color-mix(in srgb, var(--color-motif-cream) 70%, white)"
+const HAIRLINE = "color-mix(in srgb, var(--sr-brick) 25%, transparent)"
+const TINT = "color-mix(in srgb, var(--sr-amber) 12%, transparent)"
 
 const palette = {
-  body: TEAL,
-  soft: "color-mix(in srgb, var(--color-welcome-navy) 70%, transparent)",
-  heading: TEAL,
-  label: TEAL,
-  accent: TEAL,
+  body: "color-mix(in srgb, var(--sr-navy) 88%, var(--sr-maroon))",
+  soft: "color-mix(in srgb, var(--sr-navy) 65%, transparent)",
+  heading: MAROON,
+  label: "var(--sr-brick)",
+  accent: "var(--sr-brick)",
 } as const
 
-// Section background = the hero's circle pattern (PlainBubbles paints its own aqua base)
-const sectionBg = "var(--color-bg-pattern-base)"
-
-// Text sitting directly on the circle pattern (colors: globals.css → --color-on-pattern*)
+// Text sitting directly on the sunrise background: maroon ink with a soft
+// champagne halo
 const onBg = {
-  color: "var(--color-on-pattern)",
-  textShadow: "0 1px 0 var(--color-on-pattern-glow), 0 2px 12px var(--color-on-pattern-glow)",
+  color: "var(--sr-maroon)",
+  textShadow:
+    "0 1px 0 color-mix(in srgb, var(--sr-champagne) 85%, transparent), 0 2px 14px color-mix(in srgb, var(--sr-champagne) 85%, transparent)",
 } as const
 
 // Same, for the softer lines in the bottom bar
-const onBgSoft = { ...onBg, color: "var(--color-on-pattern-soft)" } as const
+const onBgSoft = { ...onBg, color: "var(--sr-brick)" } as const
 
 const onBgLineStyle = {
-  background: "var(--color-on-pattern-line)",
+  background: "color-mix(in srgb, var(--sr-brick) 45%, transparent)",
 } as const
 
 const dividerLineStyle = {
-  background: "linear-gradient(to right, transparent, color-mix(in srgb, var(--color-welcome-navy) 40%, transparent), transparent)",
+  background: "color-mix(in srgb, var(--sr-brick) 28%, transparent)",
 } as const
 
 const CORNER_DECO_CLASS =
@@ -90,7 +90,7 @@ const ct = {
 const cardStyle = {
   background: PAPER,
   boxShadow:
-    "0 22px 48px -28px color-mix(in srgb, var(--color-welcome-navy) 55%, transparent)",
+    "0 24px 50px -28px color-mix(in srgb, var(--sr-maroon) 45%, transparent), inset 0 1px 0 rgb(255 255 255 / 80%)",
 } as const
 
 type IconProps = { className?: string }
@@ -294,11 +294,10 @@ export function Footer() {
 
   return (
     <div
-      className={`${theSeasons.variable} ${aboveTheBeyond.variable} relative w-full overflow-hidden`}
-      style={{ background: sectionBg }}
+      className={`sunrise-wash ${theSeasons.variable} ${aboveTheBeyond.variable} relative w-full overflow-hidden`}
     >
-      {/* Same circle pattern as the hero */}
-      <PlainBubbles />
+      {/* Same light watercolor sunrise as the rest of the site, as a band at the top */}
+      <SunriseSky band />
 
       {/* Corner decorations (from site.ts) */}
       <div className="pointer-events-none absolute left-0 top-0 z-10">
@@ -330,8 +329,8 @@ export function Footer() {
               aria-label={`${coupleDisplayName} monogram`}
               className="block h-32 w-32 sm:h-40 sm:w-40 md:h-48 md:w-48"
               style={{
-                background: "var(--color-on-pattern)",
-                filter: "drop-shadow(0 2px 10px var(--color-on-pattern-glow))",
+                background: "var(--sr-maroon)",
+                filter: "drop-shadow(0 2px 10px color-mix(in srgb, var(--sr-champagne) 85%, transparent))",
                 WebkitMaskImage: `url("${siteConfig.couple.monogram}")`,
                 maskImage: `url("${siteConfig.couple.monogram}")`,
                 WebkitMaskSize: "contain",
@@ -356,7 +355,7 @@ export function Footer() {
             {groomName}
             <span
               className={`${aboveTheBeyond.className} mx-2 inline-block normal-case tracking-normal sm:mx-3`}
-              style={{ fontSize: "1.1em" }}
+              style={{ fontSize: "1.1em", color: "var(--sr-brick)" }}
               aria-hidden
             >
               &amp;
@@ -376,9 +375,9 @@ export function Footer() {
           ) : null}
 
           <motion.div variants={rise} className="mt-4 flex items-center justify-center gap-2" aria-hidden>
-            <span className="h-px w-12 sm:w-20" style={{ background: "var(--color-on-pattern-line)" }} />
-            <span className="h-1.5 w-1.5 rotate-45" style={{ background: "var(--color-on-pattern-line)" }} />
-            <span className="h-px w-12 sm:w-20" style={{ background: "var(--color-on-pattern-line)" }} />
+            <span className="h-px w-12 sm:w-20" style={{ background: "color-mix(in srgb, var(--sr-brick) 45%, transparent)" }} />
+            <span className="h-1.5 w-1.5 rotate-45" style={{ background: "color-mix(in srgb, var(--sr-brick) 45%, transparent)" }} />
+            <span className="h-px w-12 sm:w-20" style={{ background: "color-mix(in srgb, var(--sr-brick) 45%, transparent)" }} />
           </motion.div>
         </motion.div>
 
@@ -421,7 +420,7 @@ export function Footer() {
                         className="h-1.5 rounded-full transition-all duration-500"
                         style={{
                           width: i === currentQuoteIndex ? "1.25rem" : "0.375rem",
-                          background: i === currentQuoteIndex ? palette.label : "color-mix(in srgb, var(--color-welcome-navy) 25%, transparent)",
+                          background: i === currentQuoteIndex ? palette.label : "color-mix(in srgb, var(--sr-brick) 22%, transparent)",
                         }}
                       />
                     ))}
@@ -436,7 +435,7 @@ export function Footer() {
                 <div className="flex items-start gap-3">
                   <span
                     className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full"
-                    style={{ background: TEAL }}
+                    style={{ background: MAROON }}
                     aria-hidden
                   >
                     <CalendarHeart className="h-4.5 w-4.5" style={{ color: IVORY }} />
@@ -456,7 +455,7 @@ export function Footer() {
                       <div
                         key={key}
                         className="flex items-start gap-3 rounded-2xl px-3 py-2.5"
-                        style={{ background: "color-mix(in srgb, var(--color-welcome-navy) 7%, transparent)" }}
+                        style={{ background: TINT }}
                       >
                         <span
                           className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full"
@@ -519,7 +518,7 @@ export function Footer() {
                         background: BUTTON,
                         borderColor: BUTTON,
                         color: IVORY,
-                        boxShadow: "0 12px 24px -12px color-mix(in srgb, var(--color-romantic-coral) 60%, transparent)",
+                        boxShadow: "0 12px 24px -12px color-mix(in srgb, var(--sr-maroon) 60%, transparent)",
                       }}
                     >
                       {content.rsvp.button}
@@ -555,7 +554,7 @@ export function Footer() {
                             title={label}
                             aria-label={label}
                             className="group inline-flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300 hover:-translate-y-0.5"
-                            style={{ background: BUTTON, color: IVORY, boxShadow: "0 6px 14px -8px color-mix(in srgb, var(--color-romantic-coral) 70%, transparent)" }}
+                            style={{ background: BUTTON, color: IVORY, boxShadow: "0 6px 14px -8px color-mix(in srgb, var(--sr-maroon) 70%, transparent)" }}
                             onMouseEnter={(e) => {
                               e.currentTarget.style.background = BUTTON_HOVER
                             }}
@@ -596,7 +595,7 @@ export function Footer() {
                       </span>
                       <span
                         className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full transition-colors duration-300"
-                        style={{ background: "color-mix(in srgb, var(--color-motif-soft) 22%, transparent)" }}
+                        style={{ background: "color-mix(in srgb, var(--sr-champagne) 22%, transparent)" }}
                         aria-hidden
                       >
                         <ChevronRight className="h-3 w-3 transition-transform duration-300 group-hover:translate-x-0.5" style={{ color: IVORY }} />
@@ -630,8 +629,8 @@ export function Footer() {
                       href={content.credit.developerUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-semibold underline decoration-[var(--color-on-pattern-line)] underline-offset-2 hover:opacity-80"
-                      style={{ color: "var(--color-on-pattern)" }}
+                      className="font-semibold underline decoration-[color-mix(in_srgb,var(--sr-brick)_45%,transparent)] underline-offset-2 hover:opacity-80"
+                      style={{ color: "var(--sr-maroon)" }}
                     >
                       {content.credit.developerName}
                     </a>
@@ -642,8 +641,8 @@ export function Footer() {
                       href={content.credit.promoUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-semibold underline decoration-[var(--color-on-pattern-line)] underline-offset-2 hover:opacity-80"
-                      style={{ color: "var(--color-on-pattern)" }}
+                      className="font-semibold underline decoration-[color-mix(in_srgb,var(--sr-brick)_45%,transparent)] underline-offset-2 hover:opacity-80"
+                      style={{ color: "var(--sr-maroon)" }}
                     >
                       {content.credit.promoName}
                     </a>

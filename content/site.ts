@@ -239,9 +239,9 @@ const ATTIRE = {
 
 // ── Website address (used for QR codes, link previews, table finder) ────────
 // NEXT_PUBLIC_SITE_URL (env) overrides this when set.
-const SITE_URL = "https://jaefranz-and-rosanne-v2.vercel.app/"
+const SITE_URL = "https://jaefranz-and-rosanne.weddinginvitationrsvp.com/"
 // Image shown when the link is shared (Facebook, Messenger, Viber, X, …) — 1200×630 JPG in /public
-const LINK_PREVIEW_IMAGE = "/Details/preview-image.png"
+const LINK_PREVIEW_IMAGE = "/Details/linkrepvie.png"
 
 // Site address with env override applied and no trailing slash — no need to edit
 export const canonicalSiteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? SITE_URL).replace(/\/$/, "")
@@ -253,9 +253,9 @@ const DISPLAY_MODE = "plain" as "photos" | "plain"
 
 // ── Shared images ───────────────────────────────────────────────────────────
 const BRAND = {
-  monogram: "/monogram/new-monogram.png", // monogram (loader, envelope, closing)
+  monogram: "/monogram/monogram-new.png", // monogram (loader, envelope, closing)
   coupleNameImage: "/Details/newcoupelNames.png", // couple-name lettering (loader, envelope)
-  seal: "/monogram/new-seal.png", // envelope wax seal
+  seal: "/monogram/seal-new0.png", // envelope wax seal
   backgroundMusic: "/background_music/Goodness Of God X Oceans X Gratitude (Wedding Entrance version).mp3",
 }
 
@@ -277,10 +277,10 @@ const COUPLE_PHOTOS = [
 // Change a path here to swap it on every section at once.
 // To change ONE section only, override it there, e.g. decos: { ...SECTION_DECOS, footerVine: "" }
 const DECOR = {
-  cornerTopLeft: "/deco/flower-top-left.png",
-  cornerTopRight: "/deco/flower-top-right.png",
-  cornerBottomLeft: "/deco/flower-bot-l.png",
-  cornerBottomRight: "/deco/flower-bot-r.png",
+  cornerTopLeft: "/deco/deco-new/left-top-corner.png",
+  cornerTopRight: "/deco/deco-new/right-top-corner.png",
+  cornerBottomLeft: "/deco/deco-new/left-bottom-corner.png",
+  cornerBottomRight: "/deco/deco-new/right-bottom-corner.png",
   headerOrnament: "/deco/lovestorydeco/flower-center.png", // small sprig above titles
   footerVine: "/deco/lovestorydeco/flower-middle.png", // long vine at section ends
   sideLeft: "/deco/lovestorydeco/card-leaf-l.png", // love story side sprigs
@@ -1043,7 +1043,7 @@ export const siteConfig = {
   proposal: {
     decos: { ...CORNER_DECOS },
     coupleNameImage: BRAND.coupleNameImage, // unused: names are set in type like the loader
-    coupleImage: "/Details/coupleImages.png", // couple illustration above the question
+    coupleImage: "/Details/couple-image.png", // couple illustration above the question
     ornament: DECOR.headerOrnament, // small sprig at the top of the card; "" to hide
     // Eucalyptus sprigs on either side of the couple name; "" to hide one
     nameDecos: { left: DECOR.sideLeft, right: DECOR.sideRight },

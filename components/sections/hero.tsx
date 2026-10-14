@@ -7,8 +7,7 @@ import localFont from "next/font/local"
 import { useSiteConfig } from "@/hooks/use-site-config"
 import { parseWeddingDate } from "@/lib/wedding-date"
 import { InvitePhotoBackdrop } from "@/components/loader/invite-photo-backdrop"
-import { PlainAtmosphere } from "@/components/loader/PlainAtmosphere"
-import { PlainBubbles } from "@/components/loader/PlainBubbles"
+import { SunriseSky } from "@/components/loader/SunriseSky"
 import { siteConfig as defaultSiteConfig } from "@/content/site"
 import "@/components/loader/loading-screen.css"
 import { TintedDeco } from "@/components/tinted-deco"
@@ -215,8 +214,6 @@ export function Hero() {
   const siteConfig = useSiteConfig()
   const loading = siteConfig.loadingScreen ?? defaultSiteConfig.loadingScreen
   const isPlain = loading.display === "plain"
-  const plainTheme =
-    loading.plainTheme ?? defaultSiteConfig.loadingScreen.plainTheme
   const cornerDecos =
     loading.cornerDecos ?? defaultSiteConfig.loadingScreen.cornerDecos
   const backgroundPhotos = loading.backgroundPhotos ?? []
@@ -262,8 +259,7 @@ export function Hero() {
     >
       {isPlain ? (
         <>
-          <PlainAtmosphere baseColor={plainTheme.background} />
-          <PlainBubbles />
+          <SunriseSky />
           <div className="home-hero-plain-corners" aria-hidden="true">
             {(
               [

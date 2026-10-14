@@ -20,8 +20,7 @@ import { siteConfig as defaultSiteConfig } from '@/content/site';
 import { parseWeddingDate } from '@/lib/wedding-date';
 import { InviteParticles } from '@/components/loader/InviteParticles';
 import { InvitePhotoBackdrop } from '@/components/loader/invite-photo-backdrop';
-import { PlainAtmosphere } from '@/components/loader/PlainAtmosphere';
-import { PlainBubbles } from '@/components/loader/PlainBubbles';
+import { SunriseSky } from '@/components/loader/SunriseSky';
 import { TintedDeco } from '@/components/tinted-deco';
 import './envelope-invite.css';
 
@@ -189,14 +188,6 @@ export const Hero: React.FC<HeroProps> = ({
     phase === 'revealed' ||
     phase === 'cta';
 
-  const sealGone =
-    phase === 'seal-break' ||
-    phase === 'flap-open' ||
-    phase === 'rising' ||
-    phase === 'photos' ||
-    phase === 'revealed' ||
-    phase === 'cta';
-
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -326,7 +317,10 @@ export const Hero: React.FC<HeroProps> = ({
   const sealVariants: Variants = {
     idle: { scale: 1, opacity: 1, rotate: 0, y: 0 },
     press: { scale: 0.94, opacity: 1, rotate: 0, y: 2 },
-    break: { scale: 0.2, opacity: 0, rotate: 12, y: -4 },
+    // Mobile: after the click the seal settles back and stays in place on the envelope
+    break: { scale: 1, opacity: 1, rotate: 0, y: 0 },
+    // Desktop: the open card sits right over the seal, so it fades away instead
+    gone: { scale: 0.85, opacity: 0, rotate: 0, y: -6 },
   };
 
   /*
@@ -495,7 +489,13 @@ export const Hero: React.FC<HeroProps> = ({
   const photosInteractive = photoState === 'emerge';
 
   const sealState =
-    phase === 'idle' ? 'idle' : phase === 'seal-press' ? 'press' : 'break';
+    phase === 'idle'
+      ? 'idle'
+      : phase === 'seal-press'
+        ? 'press'
+        : isMobileViewport
+          ? 'break'
+          : 'gone';
 
   return (
     <motion.div
@@ -537,8 +537,7 @@ export const Hero: React.FC<HeroProps> = ({
 
       {isPlain && (
         <>
-          <PlainAtmosphere fixed baseColor={plainTheme.background} />
-          <PlainBubbles fixed />
+          <SunriseSky fixed />
           <div className="env-invite-plain-corners" aria-hidden="true">
             {(
               [
@@ -815,12 +814,7 @@ export const Hero: React.FC<HeroProps> = ({
             </div>
 
             {/* Wax seal — centered on flap junction */}
-            <div
-              className="env-invite-seal-wrap"
-              style={{
-                display: sealGone && phase !== 'seal-break' ? 'none' : undefined,
-              }}
-            >
+            <div className="env-invite-seal-wrap">
               <motion.button
                 type="button"
                 className="env-invite-seal-btn"
@@ -828,8 +822,10 @@ export const Hero: React.FC<HeroProps> = ({
                 initial="idle"
                 animate={sealState}
                 transition={
-                  sealState === 'break'
-                    ? { duration: 0.28, ease: 'easeIn' }
+                  sealState === 'gone'
+                    ? { duration: 0.45, ease: 'easeOut' }
+                    : sealState === 'break'
+                    ? { duration: 0.3, ease: 'easeOut' }
                     : { duration: 0.16, ease: 'easeOut' }
                 }
                 onClick={handleSealClick}
@@ -847,31 +843,6 @@ export const Hero: React.FC<HeroProps> = ({
               </motion.button>
             </div>
 
-            {phase === 'seal-break' && !reduceMotion && (
-              <>
-                <motion.span
-                  className="env-invite-seal-shard"
-                  initial={{ x: 0, y: 0, opacity: 1, scale: 1 }}
-                  animate={{ x: -28, y: -30, opacity: 0, scale: 0.35 }}
-                  transition={{ duration: 0.35, ease: 'easeOut' }}
-                  aria-hidden="true"
-                />
-                <motion.span
-                  className="env-invite-seal-shard"
-                  initial={{ x: 0, y: 0, opacity: 1, scale: 1 }}
-                  animate={{ x: 30, y: 18, opacity: 0, scale: 0.3 }}
-                  transition={{ duration: 0.38, ease: 'easeOut' }}
-                  aria-hidden="true"
-                />
-                <motion.span
-                  className="env-invite-seal-shard"
-                  initial={{ x: 0, y: 0, opacity: 1, scale: 1 }}
-                  animate={{ x: 14, y: -24, opacity: 0, scale: 0.4 }}
-                  transition={{ duration: 0.32, ease: 'easeOut' }}
-                  aria-hidden="true"
-                />
-              </>
-            )}
           </div>
         </motion.div>
 

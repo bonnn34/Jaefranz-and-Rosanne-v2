@@ -8,7 +8,7 @@ import { Cinzel } from "next/font/google"
 import { useSiteConfig } from "@/hooks/use-site-config"
 import { layeredSectionTitleSize, sectionType } from "@/lib/section-typography"
 import { fetchInvitationList } from "@/lib/invitation-data"
-import { PlainBubbles } from "@/components/loader/PlainBubbles"
+import { SunriseSky } from "@/components/loader/SunriseSky"
 import { TintedDeco } from "@/components/tinted-deco"
 
 const cinzel = Cinzel({
@@ -42,13 +42,12 @@ const TEAL_SOFT = "color-mix(in srgb, var(--color-welcome-navy) 65%, transparent
 const DEEP_GRADIENT = BUTTON
 const SAGE_GRADIENT = TEAL
 
-// Section background = the hero's circle pattern (PlainBubbles paints its own aqua base)
-const sectionBg = "var(--color-bg-pattern-base)"
-
-// Text sitting directly on the circle pattern (colors: globals.css → --color-on-pattern*)
+// Text sitting directly on the sunrise background: maroon ink with a soft
+// champagne halo (components/loader/sunrise-sky.css → --sr-*)
 const onBg = {
-  color: "var(--color-on-pattern)",
-  textShadow: "0 1px 0 var(--color-on-pattern-glow), 0 2px 12px var(--color-on-pattern-glow)",
+  color: "var(--sr-maroon)",
+  textShadow:
+    "0 1px 0 color-mix(in srgb, var(--sr-champagne) 85%, transparent), 0 2px 14px color-mix(in srgb, var(--sr-champagne) 85%, transparent)",
 } as const
 
 const palette = {
@@ -108,9 +107,9 @@ function DecoImg({ src, className }: { src: string; className: string }) {
   return <TintedDeco src={src} className={className} />
 }
 
-// onBg = sits directly on the circle pattern (plain line in --color-on-pattern-line)
+// onBg = sits directly on the sunrise background (plain light-brick line)
 function DiamondDivider({ onBg: onPattern = false }: { onBg?: boolean }) {
-  const line = onPattern ? "var(--color-on-pattern-line)" : "color-mix(in srgb, var(--color-welcome-navy) 55%, transparent)"
+  const line = onPattern ? "color-mix(in srgb, var(--sr-brick) 45%, transparent)" : "color-mix(in srgb, var(--color-welcome-navy) 55%, transparent)"
   return (
     <div className="flex items-center justify-center gap-2" aria-hidden>
       <span className="h-px w-10 sm:w-16" style={{ background: onPattern ? line : `linear-gradient(to right, transparent, ${line})` }} />
@@ -323,11 +322,10 @@ export function BookOfGuests() {
   return (
     <div
       id="guests"
-      className={`${theSeasons.variable} ${aboveTheBeyond.variable} relative isolate z-10 overflow-hidden pt-12 pb-10 sm:pt-14 sm:pb-12 md:pt-16 md:pb-14 lg:pt-20 lg:pb-16`}
-      style={{ background: sectionBg }}
+      className={`sunrise-wash ${theSeasons.variable} ${aboveTheBeyond.variable} relative isolate z-10 overflow-hidden pt-12 pb-10 sm:pt-14 sm:pb-12 md:pt-16 md:pb-14 lg:pt-20 lg:pb-16`}
     >
-      {/* Same circle pattern as the hero */}
-      <PlainBubbles />
+      {/* Same watercolor sunrise as the loader + hero, as a band at the top */}
+      <SunriseSky band />
 
       {/* Corner decorations (from site.ts) */}
       <div className="pointer-events-none absolute left-0 top-0 z-10">
@@ -368,7 +366,7 @@ export function BookOfGuests() {
         <div className="flex items-center justify-center pt-4 sm:pt-5">
           <span
             className="h-px w-16 sm:w-24 md:w-32"
-            style={{ background: "var(--color-on-pattern-line)" }}
+            style={{ background: "color-mix(in srgb, var(--sr-brick) 45%, transparent)" }}
           />
         </div>
       </motion.div>
@@ -693,7 +691,7 @@ export function BookOfGuests() {
                       className="h-1.5 rounded-full transition-all duration-500"
                       style={{
                         width: isActive ? "1.5rem" : "0.375rem",
-                        background: isActive ? "var(--color-on-pattern)" : "color-mix(in srgb, var(--color-on-pattern) 35%, transparent)",
+                        background: isActive ? "var(--sr-maroon)" : "color-mix(in srgb, var(--sr-maroon) 30%, transparent)",
                       }}
                     />
                   )

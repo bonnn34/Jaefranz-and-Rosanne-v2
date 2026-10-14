@@ -65,30 +65,30 @@
 :root {
   /* Sunset palette. Visual balance: Golden Peach 25%, Sunset Peach 20%,
      Sunset Coral 15%, Terracotta Rose 15%, Dusty Mauve 15%, Deep Plum 10%. */
-  --palette-golden-peach: #FFB978;
-  --palette-sunset-peach: #FFA47F;
-  --palette-sunset-coral: #F17C59;
-  --palette-terracotta-rose: #B65E50;
-  --palette-dusty-mauve: #AC7385;
-  --palette-deep-plum: #644657;
+  --palette-golden-peach: #F3CDB0;
+  --palette-sunset-peach: #EDBFA6;
+  --palette-sunset-coral: #D69A82;
+  --palette-terracotta-rose: #A87563;
+  --palette-dusty-mauve: #B8948A;
+  --palette-deep-plum: #6E5444;
   --background: color-mix(in srgb, var(--palette-golden-peach) 22%, white);
   --foreground: var(--palette-deep-plum);
   --card: color-mix(in srgb, var(--palette-golden-peach) 35%, white);
   --card-foreground: var(--palette-deep-plum);
   --popover: color-mix(in srgb, var(--palette-golden-peach) 35%, white);
   --popover-foreground: var(--palette-deep-plum);
-  /* Primary: deep plum #644657 */
+  /* Primary: deep plum #6E5444 */
   --primary: var(--palette-deep-plum);
   --primary-foreground: #FFFFFF;
-  /* Secondary: sunset peach #FFA47F */
+  /* Secondary: sunset peach #EDBFA6 */
   --secondary: var(--palette-sunset-peach);
   --secondary-foreground: var(--palette-deep-plum);
   /* Legacy sage alias mapped to sunset peach */
   --sage: var(--palette-sunset-peach);
-  /* Muted/light surfaces: light sunset peach #FFA47F */
+  /* Muted/light surfaces: light sunset peach #EDBFA6 */
   --muted: color-mix(in srgb, var(--palette-sunset-peach) 20%, white);
   --muted-foreground: var(--palette-deep-plum);
-  /* Accent: sunset coral #F17C59 */
+  /* Accent: sunset coral #D69A82 */
   --accent: var(--palette-sunset-coral);
   --accent-foreground: var(--palette-deep-plum);
   --destructive: color-mix(in srgb, var(--palette-terracotta-rose) 85%, var(--palette-deep-plum));
@@ -163,7 +163,7 @@
 /* ==========================================
  *  MOTIF COLORS
  *
- *  Theme: Peach Sunset Romance
+ *  Theme: Peach Sunrise Watercolor (matches attire-guide artwork)
  *
  *  Golden Peach + Sunset Peach + Sunset Coral
  *  Terracotta Rose + Dusty Mauve + Deep Plum
@@ -449,28 +449,31 @@
 
 
 /* ==========================================
- *  ENVELOPE — SUNSET PEACH FAMILY
+ *  ENVELOPE — DUSTY TERRACOTTA ROSE (flat)
  *  The invitation envelope (components/loader/
- *  envelope-invite.css). Letter inside stays light.
+ *  envelope-invite.css). Solid panels, no gradients.
+ *  Deeper than the pale peach sunrise so it stands
+ *  out, but from the same rose/brick family.
+ *  Letter inside stays light.
  * ========================================== */
 
-/* Main paper — sunset peach */
---color-envelope-paper: var(--palette-sunset-peach);
+/* Main paper (front) */
+--color-envelope-paper: #B9675B;
 
-/* Back panel / inside */
---color-envelope-base: color-mix(in srgb, var(--palette-sunset-peach) 86%, var(--color-motif-deep));
+/* Back panel / inside — the darkest */
+--color-envelope-base: #9C5047;
 
-/* Lit edges */
---color-envelope-highlight: color-mix(in srgb, var(--palette-sunset-peach) 60%, white);
+/* Top flap — the lightest */
+--color-envelope-highlight: #C97B6D;
 
-/* Flap folds */
---color-envelope-fold: color-mix(in srgb, var(--palette-sunset-peach) 80%, var(--color-motif-deep));
+/* Side folds of the pocket */
+--color-envelope-fold: #AE5E53;
 
-/* Shadows */
---color-envelope-shadow: color-mix(in srgb, var(--color-motif-deep) 70%, var(--palette-sunset-peach));
+/* Bottom fold / shadows */
+--color-envelope-shadow: #A2554B;
 
-/* Crease hairlines on the paper */
---color-envelope-crease: color-mix(in srgb, var(--color-motif-deep) 22%, transparent);
+/* Crease hairlines on the paper (light, so they read on the rose) */
+--color-envelope-crease: color-mix(in srgb, #F3E3CB 40%, transparent);
 
 
 /* ==========================================
@@ -654,12 +657,12 @@
 /*
     COLOR BALANCE (design guidance for visual coverage)
 
-    Golden Peach    #FFB978  25% - Large warm surfaces and highlights
-    Sunset Peach    #FFA47F  20% - Romantic sections and envelope paper
-    Sunset Coral    #F17C59  15% - Decorative accents and section details
-    Terracotta Rose #B65E50  15% - Script accents, floral lines and hover details
-    Dusty Mauve     #AC7385  15% - Floral elements, borders and soft accents
-    Deep Plum       #644657  10% - Headings, body text, buttons and QR codes
+    Golden Peach    #F3CDB0  25% - Large warm surfaces and highlights
+    Sunset Peach    #EDBFA6  20% - Romantic sections and envelope paper
+    Sunset Coral    #D69A82  15% - Decorative accents and section details
+    Terracotta Rose #A87563  15% - Script accents, floral lines and hover details
+    Dusty Mauve     #B8948A  15% - Floral elements, borders and soft accents
+    Deep Plum       #6E5444  10% - Headings, body text, buttons and QR codes
 
     Light paper surfaces are peach tints mixed with white.
     Percentages guide the visual balance; they are not opacity values.
@@ -1042,7 +1045,7 @@ html {
   inset: 0;
   transform: rotateY(180deg);
   z-index: 0;
-  box-shadow: inset 0 0 24px rgba(100, 70, 87, 0.06);
+  box-shadow: inset 0 0 24px rgba(110, 84, 68, 0.06);
 }
 
 .album-flipbook-page-turning {
@@ -1052,15 +1055,15 @@ html {
 @keyframes album-page-turn-out {
   0% {
     transform: rotateY(0deg);
-    box-shadow: 0 6px 28px -8px rgba(100, 70, 87, 0.16);
+    box-shadow: 0 6px 28px -8px rgba(110, 84, 68, 0.16);
   }
   45% {
     transform: rotateY(-92deg);
-    box-shadow: -12px 6px 36px -6px rgba(100, 70, 87, 0.22);
+    box-shadow: -12px 6px 36px -6px rgba(110, 84, 68, 0.22);
   }
   100% {
     transform: rotateY(-180deg);
-    box-shadow: 0 2px 12px -4px rgba(100, 70, 87, 0.1);
+    box-shadow: 0 2px 12px -4px rgba(110, 84, 68, 0.1);
   }
 }
 
@@ -1089,8 +1092,8 @@ html {
 /* Story section — shared flip stage for portrait spreads and landscape singles */
 .album-flipbook-story-shell {
   box-shadow:
-    0 2px 4px rgba(100, 70, 87, 0.06),
-    0 12px 40px -8px rgba(100, 70, 87, 0.18),
+    0 2px 4px rgba(110, 84, 68, 0.06),
+    0 12px 40px -8px rgba(110, 84, 68, 0.18),
     inset 0 0 0 1px rgba(255, 255, 255, 0.35);
 }
 
@@ -1103,8 +1106,8 @@ html {
 /* Open-book spread — two portrait photos per page */
 .album-flipbook-spread-shell {
   box-shadow:
-    0 2px 4px rgba(100, 70, 87, 0.06),
-    0 12px 40px -8px rgba(100, 70, 87, 0.18),
+    0 2px 4px rgba(110, 84, 68, 0.06),
+    0 12px 40px -8px rgba(110, 84, 68, 0.18),
     inset 0 0 0 1px rgba(255, 255, 255, 0.4);
 }
 
@@ -1119,15 +1122,15 @@ html {
   transform: translateX(-50%);
   background: linear-gradient(
     to right,
-    rgba(100, 70, 87, 0.14),
-    rgba(100, 70, 87, 0.04) 35%,
+    rgba(110, 84, 68, 0.14),
+    rgba(110, 84, 68, 0.04) 35%,
     rgba(255, 255, 255, 0.35) 50%,
-    rgba(100, 70, 87, 0.04) 65%,
-    rgba(100, 70, 87, 0.14)
+    rgba(110, 84, 68, 0.04) 65%,
+    rgba(110, 84, 68, 0.14)
   );
   box-shadow:
-    -2px 0 6px rgba(100, 70, 87, 0.08),
-    2px 0 6px rgba(100, 70, 87, 0.08);
+    -2px 0 6px rgba(110, 84, 68, 0.08),
+    2px 0 6px rgba(110, 84, 68, 0.08);
 }
 
 .album-flipbook-half {
@@ -1137,11 +1140,11 @@ html {
 }
 
 .album-flipbook-half-left {
-  box-shadow: inset -6px 0 12px -8px rgba(100, 70, 87, 0.1);
+  box-shadow: inset -6px 0 12px -8px rgba(110, 84, 68, 0.1);
 }
 
 .album-flipbook-half-right {
-  box-shadow: inset 6px 0 12px -8px rgba(100, 70, 87, 0.1);
+  box-shadow: inset 6px 0 12px -8px rgba(110, 84, 68, 0.1);
 }
 
 .album-flipbook-blank-page {
