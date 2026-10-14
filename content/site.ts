@@ -177,7 +177,7 @@ const ATTIRE = {
 
   sponsors: {
     title: "Principal Sponsors",
-    image: "/Details/ninangninong.png",
+    image: "/Details/new-prin-sponsor.png",
     palette: [] as AttireColor[],
 
     ladies: {
@@ -197,14 +197,14 @@ const ATTIRE = {
 
   entourage: {
     title: "Entourage",
-    image: "/Details/entouragenew.png",
+    image: "/Details/new-entourage.png",
     palette: [] as AttireColor[],
 
     ladies: {
       label: "Ladies",
       details:
-        "Elegant floor-length formal gowns in a uniform deep maroon shade. Different gown styles and silhouettes are welcome while maintaining a romantic, refined, and coordinated appearance.",
-      highlight: "Maroon Formal Gowns",
+        "Elegant floor-length gowns in a uniform muted rose shade. Different styles, necklines, and silhouettes are welcome while maintaining a soft, romantic, and coordinated appearance.",
+      highlight: "Muted Rose Formal Gowns",
     },
 
     gentlemen: {
@@ -217,7 +217,7 @@ const ATTIRE = {
 
   guests: {
     title: "Guests",
-    image: "/Details/newguest.png",
+    image: "/Details/new-guest.png",
     palette: DRESS_CODE_PALETTE,
 
     ladies: {
@@ -241,7 +241,7 @@ const ATTIRE = {
 // NEXT_PUBLIC_SITE_URL (env) overrides this when set.
 const SITE_URL = "https://jaefranz-and-rosanne.weddinginvitationrsvp.com/"
 // Image shown when the link is shared (Facebook, Messenger, Viber, X, …) — 1200×630 JPG in /public
-const LINK_PREVIEW_IMAGE = "/Details/linkrepvie.png"
+const LINK_PREVIEW_IMAGE = "/Details/new-preview-image.png"
 
 // Site address with env override applied and no trailing slash — no need to edit
 export const canonicalSiteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? SITE_URL).replace(/\/$/, "")
@@ -256,7 +256,7 @@ const BRAND = {
   monogram: "/monogram/monogram-new.png", // monogram (loader, envelope, closing)
   coupleNameImage: "/Details/newcoupelNames.png", // couple-name lettering (loader, envelope)
   seal: "/monogram/seal-new0.png", // envelope wax seal
-  backgroundMusic: "/background_music/Goodness Of God X Oceans X Gratitude (Wedding Entrance version).mp3",
+  backgroundMusic:"/background_music/Canon in D - Pachelbel violin cover [BEST WEDDING VERSION].mp3",
 }
 
 // Couple photos reused across the site (gallery, loader, reminders, snap & share, closing)
@@ -282,7 +282,7 @@ const DECOR = {
   cornerBottomLeft: "/deco/deco-new/left-bottom-corner.png",
   cornerBottomRight: "/deco/deco-new/right-bottom-corner.png",
   headerOrnament: "/deco/lovestorydeco/flower-center.png", // small sprig above titles
-  footerVine: "/deco/lovestorydeco/flower-middle.png", // long vine at section ends
+  footerVine: "", // long vine at section ends
   sideLeft: "/deco/lovestorydeco/card-leaf-l.png", // love story side sprigs
   sideRight: "/deco/lovestorydeco/card-leaf-r.png",
 }
@@ -1390,8 +1390,8 @@ Now, as they prepare to say yes before God and the people they love most, Cather
     decos: { ...CORNER_DECOS, headerOrnament: DECOR.headerOrnament },
     embedUrl:
     //https://open.spotify.com/embed/playlist/5sT43YjdM8pJ3xtEkrxyEY?utm_source=generator&si=e5e64aa63fd04356
-      "https://open.spotify.com/embed/playlist/0ODc8euexYUvftVVGYEzca?utm_source=generator&si=5558c3a95e27452b  ",
-    spotifyUrl: "https://open.spotify.com/playlist/0ODc8euexYUvftVVGYEzca?si=Epbb7wkLSFCTUaww9Xax6w",
+      "https://open.spotify.com/embed/playlist/0ODc8euexYUvftVVGYEzca?utm_source=generator&si=2001a3615e4d428d",
+    spotifyUrl: "https://open.spotify.com/playlist/0ODc8euexYUvftVVGYEzca?si=Lg5-frpNSRqCRIpBMgNkQw",
   },
   // Closing "See you there!" section (components/sections/see-you-there.tsx).
   //   photos mode (loadingScreen.display "photos") → full-screen couple photo
